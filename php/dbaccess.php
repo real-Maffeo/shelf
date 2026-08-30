@@ -1,26 +1,25 @@
 <?php
-declare(strict_types=1);
+    declare(strict_types=1);
 
-session_set_cookie_params([
-    'lifetime' => 0,
-    'path' => '/',
-    'domain' => '', 
-    'secure' => isset($_SERVER['HTTPS']), // cookie inviati tramite HTTPS se disponibile
-    'httponly' => true,                   // impedisce XSS cookie theft
-    'samesite' => 'Strict'
-]);
+    session_set_cookie_params([
+        "lifetime" => 0,
+        "path" => "/",
+        "domain" => "", 
+        "secure" => isset($_SERVER["HTTPS"]), // cookie inviati tramite HTTPS se disponibile
+        "httponly" => true,                   // impedisce XSS cookie theft
+        "samesite" => "Strict"
+    ]);
 
-session_start();
+    session_start();
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'ciulli_690507');
+    define("DB_HOST", "localhost");
+    define("DB_USER", "root");
+    define("DB_PASS", "");
+    define("DB_NAME", "ciulli_690507");
 
-$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-if ($mysqli->connect_error) {
-    http_response_code(500);
-    die(json_encode(['error' => 'connessione al DB fallita']));
-}
-$mysqli->set_charset('utf8mb4');
+    if ($mysqli->connect_error) {
+        http_response_code(500);
+        die("Errore di connessione al database.");
+    }
+    $mysqli->set_charset("utf8mb4");
 ?>

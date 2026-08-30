@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <link href="../css/style.css" rel="stylesheet" type="text/css">
+        <title>Registrazione</title>
+    </head>
+    <body>
+        <h1>Registrazione</h1>
+        <form action="../php/signup.php" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" pattern="^[a-zA-Z0-9!@#$%^&*_-]{4,32}$" required>
+            <!-- https://regex101.com/ per la costruzione delle espressioni regolari -->
+
+            <br><br>
+
+            <label for="password">Password:</label>
+            <input type="text" id="password" name="password" pattern="^[a-zA-Z0-9!@#$%^&*_-]{8,64}$" required>
+
+            <br><br>
+
+            <label for="confirm_password">Conferma Password:</label>
+            <input type="text" id="confirm_password" name="confirm_password" required>
+
+            <br><br>
+
+            <button type="submit">Registrati</button>
+        </form>
+        <p>
+            Sei gia' registrato?
+            <a href="../index.html">Accedi</a>
+        </p>
+    </body>
+</html>
