@@ -17,6 +17,9 @@
     define("DB_PASS", "");
     define("DB_NAME", "ciulli_690507");
 
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+    // Connessione fallita
     if ($mysqli->connect_error) {
         http_response_code(500);
         die("Errore di connessione al database.");
