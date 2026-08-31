@@ -3,80 +3,70 @@
     require_once "dbaccess.php";
     require_once "generi.php";
 
+    $TIPI_VALIDI = array_keys(GENERI); // film, libro, fumetto, serie_tv
+
     if ($_SERVER["REQUEST_METHOD"] === "GET") {     // Mostra il form
         ?>
         <!DOCTYPE html>
         <html lang="it">
             <head>
                 <meta charset="UTF-8">
+                <link href="../css/style.css" rel="stylesheet" type="text/css">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Aggiungi</title>
             </head>
             <body>
-
                 <h1>Aggiungi nuovo titolo</h1>
-
-                <!-- 
-                    tipo ENUM('film','libro','fumetto','serie_tv') NOT NULL,
-                    titolo VARCHAR(64) NOT NULL,
-                    creatore VARCHAR(64),   -- Regista, autore, o ideatore, a seconda del tipo
-                    genere VARCHAR(16) NOT NULL,
-                    copertina_url VARCHAR(256) DEFAULT NULL,
-                    valutazione TINYINT UNSIGNED NOT NULL,  -- 1-5, controllato lato PHP
-                    descrizione TEXT,
-                    segnalibro VARCHAR(32) DEFAULT NULL,    -- NULL per tipo='film'
-                    preferito BOOLEAN DEFAULT FALSE,
-                -->
-
+                
                 <form method="POST">
-                    <!-- Campi del form -->
                     <label for="tipo">Categoria:</label>
-                    <select name="tipo" id="tipo" onchange="cambiaTipo()" required>
-                        <option value="film">Film</option>
-                        <option value="libro">Libro</option>
-                        <option value="fumetto">Fumetto</option>
-                        <option value="serie_tv">Serie TV</option>
-                    </select>
-
-                    <br><br>
-
-                    <label for="titolo">Titolo:</label>
-                    <input type="text" name="titolo" id="titolo" required>
-
-                    <br><br>
-
-                    <label for="creatore" id="labelCreatore">Chi l'ha creato:</label>
-                    <input type="text" name="creatore" id="creatore" required>
-
-                    <br><br>
-
-                    <label for="genere">Genere:</label>
-                    <select name="genere" id="genere" required>
-                        <?php foreach ($GENERI[tipo] as $genere): ?>
-                            <option value="<?= htmlspecialchars($genere) ?>">
-                                <?= htmlspecialchars($genere) ?>
-                            </option>
+                    <select name="tipo" id="tipo" required>
+                        <?php foreach ($TIPI_VALIDI as $t): ?>
+                            <option value="<?= htmlspecialchars($t) ?>"><?= htmlspecialchars(ucfirst(str_replace('_', ' ', $t))) ?></option>
                         <?php endforeach; ?>
                     </select>
 
                     <br><br>
 
-                    <label for="copertina_url">URL:</label>
-                    <input type="url" name="copertina_url" id="copertina_url">
+                    <label for="titolo">Titolo:</label>
+                    <input type="text" name="titolo" id="titolo" maxlength="64" required>
 
                     <br><br>
 
-                    <!-- Non so come implementare valutazione -->
+                    <label for="creatore" id="labelCreatore">Regista:</label>
+                    <input type="text" name="creatore" id="creatore" maxlength="64">
+
+                    <br><br>
+
+                    <label for="genere">Genere:</label>
+                    <select name="genere" id="genere" required>
+                        <?php foreach (GENERI[$TIPI_VALIDI[0]] as $genere): ?>
+                            <option value="<?= htmlspecialchars($genere) ?>"><?= htmlspecialchars($genere) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <br><br>
+
+                    <label for="copertina_url">URL copertina:</label>
+                    <input type="url" name="copertina_url" id="copertina_url" maxlength="256">
+
+                    <br><br>
+
+                    <label>Valutazione:</label>
+                    <span id="stelle" data-valore="0">
+                        <span class="stella" data-valore="1">&#9734;</span><span class="stella" data-valore="2">&#9734;</span><span class="stella" data-valore="3">&#9734;</span><span class="stella" data-valore="4">&#9734;</span><span class="stella" data-valore="5">&#9734;</span>
+                    </span>
+                    <input type="hidden" name="valutazione" id="valutazione" value="0" required>
 
                     <br><br>
 
                     <label for="commento">Commento: </label>
-                    <input type="text" id="commento" name="commento" pattern="^[a-zA-Z0-9!?/.,;:]{0,512}$"> <!-- il limite 512 e' per prova, da definire, da decidere quali caratteri consentire -->
+                    <textarea id="commento" name="commento" maxlength="512" rows="4"></textarea>
 
                     <br><br>
 
-                    <label for="segnalibro">Fino a dove sei arrivato:</label>
-                    <input type="text" name="segnalibro" id="segnalibro" pattern="^[a-zA-Z0-9]">
+                    <label for="segnalibro" id="labelSegnalibro">Fino a dove sei arrivato:</label>
+                    <input type="text" name="segnalibro" id="segnalibro" maxlength="32">
 
                     <div id="datiSerie" style="display: none;">
                         <label for="stagione">Stagione:</label>
@@ -86,130 +76,92 @@
                         <input type="number" name="episodio" id="episodio" min="1">
                     </div>
 
-                    <script>
-                    function segnalibro() {
-                        const tipo = document.getElementById("tipo").value;
-                        const segnalibro = document.getElementById("segnalibro");
-
-                        if (tipo === "film") {
-                            segnalibro.disabled = true;
-                            segnalibro.value = NULL;
-                        } else if (tipo === "libro") {
-                            label.textContent = "Pagina: ";
-                            segnalibro.disabled = false;
-                        } else if (tipo === "fumetto") {
-                            label.textContent = "Capitolo: ";
-                            segnalibro.disabled = false;
-                        } else {
-                            
-                            segnalibro.disabled = false;
-                        }
-                    }
-                        function cambiaTipo() {
-                            const tipo = document.getElementById("tipo").value;
-                            const labelCreatore = document.getElementById("labelCreatore");
-                            const creatore = document.getElementById("creatore");
-                            const datiSerie = document.getElementById("datiSerie");
-                            const stagione = document.getElementById("stagione");
-                            const episodio = document.getElementById("episodio");
-
-                            // Gestione creatore
-                            if (tipo === "film" || tipo === "serie_tv") {
-                                labelCreatore.textContent = "Regista:";
-                                creatore.disabled = false;
-                                creatore.required = true;
-                            } else if (tipo === "libro" || tipo === "fumetto") {
-                                labelCreatore.textContent = "Autore:";
-                                creatore.disabled = false;
-                                creatore.required = true;
-                            }
-
-                            // Gestione segnalibro/stagione ed episodio
-                            if (tipo === "film") {
-                                segnalibro.disabled = true;
-                                segnalibro.value = NULL;
-                            } else if (tipo === "libro") {
-                                label.textContent = "Pagina: ";
-                                segnalibro.disabled = false;
-                            } else if (tipo === "fumetto") {
-                                label.textContent = "Capitolo: ";
-                                segnalibro.disabled = false;
-                            } else if (tipo === "serie_tv") {
-                                segnalibro.disabled = false;
-                            }
-
-                            if (tipo === "serie_tv") {
-                                datiSerie.style.display = "block";
-                                stagione.disabled = false;
-                                episodio.disabled = false;
-                                stagione.required = true;
-                                episodio.required = true;
-                            } else {
-                                datiSerie.style.display = "none";
-                                stagione.disabled = true;
-                                episodio.disabled = true;
-                                stagione.required = false;
-                                episodio.required = false;
-                                stagione.value = "";
-                                episodio.value = "";
-                            }
-                        }
-                    </script>
-
-                    <!-- Non so come implementare preferito -->
-
+                    <br><br>
                     <button type="submit">Salva</button>
                 </form>
+
+                <script>
+                    const GENERI = <?= json_encode(GENERI) ?>;
+                </script>
+                <script src="../js/aggiungi.js"></script>
             </body>
         </html>
         <?php
-    }  elseif ($_SERVER["REQUEST_METHOD"] !== "POST") {     // Valida e salva
+    }  elseif ($_SERVER["REQUEST_METHOD"] === "POST") {     // Valida e salva
 
-        /* 
-            tipo ENUM('film','libro','fumetto','serie_tv') NOT NULL,
-            titolo VARCHAR(64) NOT NULL,
-            creatore VARCHAR(64),   -- Regista, autore, o ideatore, a seconda del tipo
-            genere VARCHAR(16) NOT NULL,
-            copertina_url VARCHAR(256) DEFAULT NULL,
-            valutazione TINYINT UNSIGNED NOT NULL,  -- 1-5, controllato lato PHP
-            descrizione TEXT,
-            segnalibro VARCHAR(32) DEFAULT NULL,    -- NULL per tipo='film'
-            preferito BOOLEAN DEFAULT FALSE,
-        */
+        function erroreAggiunta($messaggio) {
+            header("Location: aggiungi.php?errore=" . urlencode($messaggio));
+            exit;
+        }
 
-        // Recuperazione e validazione dei dati
+        // Recupero e sanifica dei dati
         $tipo = strip_tags(trim($_POST["tipo"] ?? ""));
         $titolo = strip_tags(trim($_POST["titolo"] ?? ""));
         $creatore = strip_tags(trim($_POST["creatore"] ?? ""));
         $genere = strip_tags(trim($_POST["genere"] ?? ""));
-        $copertina_url = trim($_POST["copertina_url"] ?? "");
-        $valutazione = strip_tags(trim($_POST["valutazione"] ?? ""));
-        $descrizione = strip_tags(trim($_POST["descrizione"] ?? ""));
+        $copertina_url = strip_tags(trim($_POST["copertina_url"] ?? ""));
+        $valutazione = filter_var($_POST["valutazione"] ?? "", FILTER_VALIDATE_INT);
+        $descrizione = strip_tags(trim($_POST["commento"] ?? ""));
         $segnalibro = strip_tags(trim($_POST["segnalibro"] ?? ""));
-        if ($tipo === "serie_tv") {
-            $stagione = $_POST["stagione"] ?? "";
-            $episodio = $_POST["episodio"] ?? "";
 
-            $segnalibro = "Stagione " . $stagione . ", Episodio " . $episodio;
+        // Controllo correttezza dati
+        if (!in_array($tipo, $TIPI_VALIDI, true)) {
+            erroreAggiunta("Categoria non valida!");
         }
-        $preferito = strip_tags(trim($_POST["preferito"] ?? ""));
+        if (!in_array($genere, GENERI[$tipo], true)) {
+            erroreAggiunta("Genere non valido per questa categoria!");
+        }
+        if ($titolo === "" || strlen($titolo) > 64) {
+            erroreAggiunta("Titolo obbligatorio, massimo 64 caratteri!");
+        }
+        if (strlen($creatore) > 64) {
+            erroreAggiunta("Il nome del creatore è troppo lungo (max 64 caratteri)!");
+        }
+        if ($valutazione === false || $valutazione < 1 || $valutazione > 5) {
+            erroreAggiunta("Seleziona una valutazione da 1 a 5 stelle!");
+        }
+        if (strlen($descrizione) > 512) {
+            erroreAggiunta("Il commento è troppo lungo (max 512 caratteri)!");
+        }
+        if ($copertina_url !== "" && !filter_var($copertina_url, FILTER_VALIDATE_URL)) {
+            erroreAggiunta("Il link della copertina non è valido!");
+        }
 
-        echo "<p>Dati salvati correttamente.</p>";
+        // Segnalibro personalizzato in base al tipo
+        if ($tipo === "serie_tv") {
+            $stagione = filter_var($_POST["stagione"] ?? "", FILTER_VALIDATE_INT);
+            $episodio = filter_var($_POST["episodio"] ?? "", FILTER_VALIDATE_INT);
+            if ($stagione === false || $episodio === false) {
+                erroreAggiunta("Stagione ed episodio sono obbligatori per le serie TV!");
+            }
+            $segnalibro = "Stagione {$stagione}, Episodio {$episodio}";
+        } elseif ($tipo === "film") {
+            $segnalibro = null;
         } else {
-            http_response_code(405);
-            exit("Metodo non consentito!");
+            if (strlen($segnalibro) > 32) {
+                erroreAggiunta("Il segnalibro è troppo lungo (max 32 caratteri)!");
+            }
+            $segnalibro = $segnalibro !== "" ? $segnalibro : null;
         }
 
+        $stmt = $mysqli->prepare("INSERT INTO opere (utente_id, tipo, titolo, creatore, genere, copertina_url, valutazione, descrizione, segnalibro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $utente_id = $_SESSION["utente_id"];
+        $creatore_db = $creatore !== "" ? $creatore : null;
+        $copertina_db = $copertina_url !== "" ? $copertina_url : null;
+        $descrizione_db = $descrizione !== "" ? $descrizione : null;
 
+        $stmt->bind_param("isssssiss", $utente_id, $tipo, $titolo, $creatore_db, $genere, $copertina_db, $valutazione, $descrizione_db, $segnalibro);
 
-        $tipo = $_POST["tipo"] ?? "";
-        $creatore = strip_tags(trim($_POST["creatore"] ?? ""));
-
-        if ($tipo === "serie_tv") {
-            $stagione = $_POST["stagione"] ?? "";
-            $episodio = $_POST["episodio"] ?? "";
-
-            $output = "Stagione " . $stagione . ", Episodio " . $episodio;
+        if (!$stmt->execute()) {
+            http_response_code(500);
+            exit("Errore durante il salvataggio!");
         }
 
+        header("Location: lista.php?tipo=" . urlencode($tipo) . "&messaggio=" . urlencode("Aggiunto con successo!"));
+        exit;
+
+    } else {
+        http_response_code(405);
+        exit("Metodo non consentito!");
+    }
 ?>
