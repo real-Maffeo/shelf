@@ -13,6 +13,7 @@
     */
 
     if (!isset($_SESSION["utente_id"])) {
+        http_response_code(401);
         header("Location: ../index.html?errore=" . urlencode("Devi effettuare il login!"));
         exit;
     }

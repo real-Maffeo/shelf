@@ -3,7 +3,7 @@
     // header("Content-Type: application/json");
 
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status#client_error_responses per i codici di riposta
-    if (!$_SERVER["REQUEST_METHOD"] === "POST") {
+    if ($_SERVER["REQUEST_METHOD"] !== "POST") {
         http_response_code(405);
         /*
         echo json_encode(["errore" => "Metodo non consentito!"]);
@@ -39,7 +39,7 @@
 
     $hash = password_hash($password, PASSWORD_DEFAULT); // Hash della password
     $stmt = $mysqli->prepare("INSERT INTO utenti (username, password_hash) VALUES (?, ?)");
-    $stmt->bind_param("ss", $username, $password_hash); // Protezione da SQL injection
+    $stmt->bind_param("ss", $username, $hash); // Protezione da SQL injection
 
     // Controlli sull'esecuzione della query
     if (!$stmt->execute()) {
@@ -49,11 +49,11 @@
             exit;
         } else {
             http_response_code(500);
-            exit("Errore database: " . $stmt->error);
+        exit("Errore del database" /*. $stmt->error*/);
         }
     }
 
     // $_SESSION["username"] = $username;
-    echo json_encode(["status" => "successo", "messaggio" => "Registrazione avvenuta con successo", "username" => $username]);
-    header("Location: ../index.html");
+    // echo json_encode(["status" => "successo", "messaggio" => "Registrazione avvenuta con successo", "username" => $username]);
+    header("Location: ../index.html?registrato=1");
 ?>

@@ -3,10 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <link href="../css/style.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Registrazione</title>
     </head>
     <body>
         <h1>Registrazione</h1>
+        <div id="errore"></div>
         <form action="../php/signup.php" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" pattern="^[a-zA-Z0-9!@#$%^&*_-]{4,32}$" required>
@@ -30,5 +32,6 @@
             Sei gia' registrato?
             <a href="../index.html">Accedi</a>
         </p>
+        <script src="../js/script.js"></script>
     </body>
 </html>

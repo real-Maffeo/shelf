@@ -7,6 +7,6 @@
     session_destroy();
 
     // echo json_encode(["status" => "successo", "messaggio" => "(T^T)"]);
-    header("Location: ../index.html") . urlencode("A presto (T^T)");
+    header("Location: ../index.html?errore=" . urlencode("A presto (T^T)"));
     exit;
 ?>
