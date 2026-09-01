@@ -1,7 +1,6 @@
 function cambiaTipo() {
     const tipo = document.getElementById("tipo").value;
     const labelCreatore = document.getElementById("labelCreatore");
-    const creatore = document.getElementById("creatore");
     const generoSelect = document.getElementById("genere");
     const segnalibro = document.getElementById("segnalibro");
     const labelSegnalibro = document.getElementById("labelSegnalibro");
@@ -19,24 +18,20 @@ function cambiaTipo() {
     });
 
     // Etichetta creatore
-    if (tipo === "film" || tipo === "serie_tv") {
-        labelCreatore.textContent = "Regista:";
-    } else {
-        labelCreatore.textContent = "Autore:";
-    }
+    labelCreatore.textContent = (tipo === "film" || tipo === "serie_tv") ? "Regista:" : "Autore:";
 
     // Segnalibro
     if (tipo === "film") {
         segnalibro.disabled = true;
         segnalibro.value = "";
-    } else if (tipo === "libro") {
-        labelSegnalibro.textContent = "Pagina:";
-        segnalibro.disabled = false;
-    } else if (tipo === "fumetto") {
-        labelSegnalibro.textContent = "Capitolo:";
-        segnalibro.disabled = false;
+        segnalibro.style.display = "inline";
+    } else if (tipo === "serie_tv") {
+        segnalibro.style.display = "none";
+        segnalibro.disabled = true;
     } else {
+        segnalibro.style.display = "inline";
         segnalibro.disabled = false;
+        labelSegnalibro.textContent = tipo === "libro" ? "Pagina:" : "Capitolo:";
     }
 
     // Stagione e episodio solo per le serie TV
@@ -44,18 +39,12 @@ function cambiaTipo() {
         datiSerie.style.display = "block";
         stagione.disabled = false;
         episodio.disabled = false;
-        stagione.required = true;
-        episodio.required = true;
-        segnalibro.style.display = "none";
     } else {
         datiSerie.style.display = "none";
         stagione.disabled = true;
         episodio.disabled = true;
-        stagione.required = false;
-        episodio.required = false;
         stagione.value = "";
         episodio.value = "";
-        segnalibro.style.display = "inline";
     }
 }
 

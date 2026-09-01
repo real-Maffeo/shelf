@@ -2,6 +2,7 @@
     require_once "controllo_sessione.php";
     require_once "dbaccess.php";
     require_once "generi.php";
+    require_once "validazione_opera.php";
 
     $TIPI_VALIDI = array_keys(GENERI); // film, libro, fumetto, serie_tv
 
@@ -17,6 +18,9 @@
             </head>
             <body>
                 <h1>Aggiungi nuovo titolo</h1>
+                <?php if (isset($_GET["errore"])): ?>
+                    <div id="errore"><?= htmlspecialchars($_GET["errore"]) ?></div> <!-- Stampa errore -->
+                <?php endif; ?>
                 
                 <form method="POST">
                     <label for="tipo">Categoria:</label>
@@ -104,57 +108,37 @@
         $descrizione = strip_tags(trim($_POST["commento"] ?? ""));
         $segnalibro = strip_tags(trim($_POST["segnalibro"] ?? ""));
 
-        // Controllo correttezza dati
-        if (!in_array($tipo, $TIPI_VALIDI, true)) {
-            erroreAggiunta("Categoria non valida!");
-        }
-        if (!in_array($genere, GENERI[$tipo], true)) {
-            erroreAggiunta("Genere non valido per questa categoria!");
-        }
-        if ($titolo === "" || strlen($titolo) > 64) {
-            erroreAggiunta("Titolo obbligatorio, massimo 64 caratteri!");
-        }
-        if (strlen($creatore) > 64) {
-            erroreAggiunta("Il nome del creatore è troppo lungo (max 64 caratteri)!");
-        }
-        if ($valutazione === false || $valutazione < 1 || $valutazione > 5) {
-            erroreAggiunta("Seleziona una valutazione da 1 a 5 stelle!");
-        }
-        if (strlen($descrizione) > 512) {
-            erroreAggiunta("Il commento è troppo lungo (max 512 caratteri)!");
-        }
-        if ($copertina_url !== "" && !filter_var($copertina_url, FILTER_VALIDATE_URL)) {
-            erroreAggiunta("Il link della copertina non è valido!");
+        $errore = validaOpera($tipo, $titolo, $creatore, $genere, $valutazione, $descrizione, $copertina_url, $TIPI_VALIDI);
+        if ($errore !== null) {
+            erroreAggiunta($errore);
         }
 
-        // Segnalibro personalizzato in base al tipo
-        if ($tipo === "serie_tv") {
-            $stagione = filter_var($_POST["stagione"] ?? "", FILTER_VALIDATE_INT);
-            $episodio = filter_var($_POST["episodio"] ?? "", FILTER_VALIDATE_INT);
-            if ($stagione === false || $episodio === false) {
-                erroreAggiunta("Stagione ed episodio sono obbligatori per le serie TV!");
-            }
-            $segnalibro = "Stagione {$stagione}, Episodio {$episodio}";
-        } elseif ($tipo === "film") {
-            $segnalibro = null;
-        } else {
-            if (strlen($segnalibro) > 32) {
-                erroreAggiunta("Il segnalibro è troppo lungo (max 32 caratteri)!");
-            }
-            $segnalibro = $segnalibro !== "" ? $segnalibro : null;
+        $stagione = filter_var($_POST["stagione"] ?? "", FILTER_VALIDATE_INT);
+        $episodio = filter_var($_POST["episodio"] ?? "", FILTER_VALIDATE_INT);
+        $segnalibro = costruisciSegnalibro($tipo, $segnalibro, $stagione, $episodio);
+
+        if ($segnalibro !== null && strlen($segnalibro) > 32) {
+            erroreAggiunta("Segnalibro troppo lungo: usa numeri più piccoli per stagione/episodio.");
         }
 
-        $stmt = $mysqli->prepare("INSERT INTO opere (utente_id, tipo, titolo, creatore, genere, copertina_url, valutazione, descrizione, segnalibro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $mysqli->prepare(
+            "INSERT INTO opere (utente_id, tipo, titolo, creatore, genere, copertina_url, valutazione, descrizione, segnalibro)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        );
+
         $utente_id = $_SESSION["utente_id"];
         $creatore_db = $creatore !== "" ? $creatore : null;
         $copertina_db = $copertina_url !== "" ? $copertina_url : null;
         $descrizione_db = $descrizione !== "" ? $descrizione : null;
 
-        $stmt->bind_param("isssssiss", $utente_id, $tipo, $titolo, $creatore_db, $genere, $copertina_db, $valutazione, $descrizione_db, $segnalibro);
+        $stmt->bind_param(
+            "isssssiss",
+            $utente_id, $tipo, $titolo, $creatore_db, $genere, $copertina_db, $valutazione, $descrizione_db, $segnalibro
+        );
 
         if (!$stmt->execute()) {
             http_response_code(500);
-            exit("Errore durante il salvataggio!");
+            exit("Errore durante il salvataggio");
         }
 
         header("Location: lista.php?tipo=" . urlencode($tipo) . "&messaggio=" . urlencode("Aggiunto con successo!"));

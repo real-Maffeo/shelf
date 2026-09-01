@@ -19,3 +19,8 @@ CREATE TABLE opere (
     data_inserimento DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (utente_id) REFERENCES utenti(id)
 );
+
+/*
+il campo creatore e' opzionale perche' potresti voler segnare un film che hai visto senza ricordarti 
+chi era il regista, o un fumetto senza sapere l'autore a memoria — bloccare l'inserimento per questo sarebbe una frizione inutile
+*/
