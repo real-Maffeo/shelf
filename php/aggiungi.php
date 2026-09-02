@@ -42,11 +42,18 @@
 
                     <br><br>
 
-                    <label for="genere">Genere:</label>
-                    <select name="genere" id="genere" required>
-                        <?php foreach (GENERI[$TIPI_VALIDI[0]] as $genere): ?>
-                            <option value="<?= htmlspecialchars($genere) ?>"><?= htmlspecialchars($genere) ?></option>
-                        <?php endforeach; ?>
+                    <label for="genere_1">Genere:</label>
+                    <select name="genere_1" id="genere_1" required>
+                    </select>
+
+                    <label for="genere_2">Genere secondario (facoltativo):</label>
+                    <select name="genere_2" id="genere_2">
+                        <option value="">-- Nessuno --</option>
+                    </select>
+
+                    <label for="genere_3">Terzo genere (facoltativo):</label>
+                    <select name="genere_3" id="genere_3">
+                        <option value="">-- Nessuno --</option>
                     </select>
 
                     <br><br>
@@ -69,8 +76,10 @@
 
                     <br><br>
 
-                    <label for="segnalibro" id="labelSegnalibro">Fino a dove sei arrivato:</label>
-                    <input type="text" name="segnalibro" id="segnalibro" maxlength="32">
+                    <div id="blocco_segnalibro">
+                        <label for="segnalibro" id="labelSegnalibro">Fino a dove sei arrivato:</label>
+                        <input type="text" name="segnalibro" id="segnalibro" maxlength="32">
+                    </div>
 
                     <div id="datiSerie" style="display: none;">
                         <label for="stagione">Stagione:</label>
@@ -102,13 +111,15 @@
         $tipo = strip_tags(trim($_POST["tipo"] ?? ""));
         $titolo = strip_tags(trim($_POST["titolo"] ?? ""));
         $creatore = strip_tags(trim($_POST["creatore"] ?? ""));
-        $genere = strip_tags(trim($_POST["genere"] ?? ""));
+        $genere_1 = strip_tags(trim($_POST["genere_1"] ?? ""));
+        $genere_2 = strip_tags(trim($_POST["genere_2"] ?? ""));
+        $genere_3 = strip_tags(trim($_POST["genere_3"] ?? ""));
         $copertina_url = strip_tags(trim($_POST["copertina_url"] ?? ""));
         $valutazione = filter_var($_POST["valutazione"] ?? "", FILTER_VALIDATE_INT);
         $descrizione = strip_tags(trim($_POST["commento"] ?? ""));
         $segnalibro = strip_tags(trim($_POST["segnalibro"] ?? ""));
 
-        $errore = validaOpera($tipo, $titolo, $creatore, $genere, $valutazione, $descrizione, $copertina_url, $TIPI_VALIDI);
+        $errore = validaOpera($tipo, $titolo, $creatore, $genere_1, $genere_2, $genere_3, $valutazione, $descrizione, $copertina_url, $TIPI_VALIDI);
         if ($errore !== null) {
             erroreAggiunta($errore);
         }
@@ -122,18 +133,19 @@
         }
 
         $stmt = $mysqli->prepare(
-            "INSERT INTO opere (utente_id, tipo, titolo, creatore, genere, copertina_url, valutazione, descrizione, segnalibro)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO opere (utente_id, tipo, titolo, creatore, genere_1, genere_2, genere_3, copertina_url, valutazione, descrizione, segnalibro)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
-
+        $genere_2_db = $genere_2 !== "" ? $genere_2 : null;
+        $genere_3_db = $genere_3 !== "" ? $genere_3 : null;
         $utente_id = $_SESSION["utente_id"];
         $creatore_db = $creatore !== "" ? $creatore : null;
         $copertina_db = $copertina_url !== "" ? $copertina_url : null;
         $descrizione_db = $descrizione !== "" ? $descrizione : null;
 
         $stmt->bind_param(
-            "isssssiss",
-            $utente_id, $tipo, $titolo, $creatore_db, $genere, $copertina_db, $valutazione, $descrizione_db, $segnalibro
+            "isssssssiss",
+            $utente_id, $tipo, $titolo, $creatore_db, $genere_1, $genere_2_db, $genere_3_db, $copertina_db, $valutazione, $descrizione_db, $segnalibro
         );
 
         if (!$stmt->execute()) {

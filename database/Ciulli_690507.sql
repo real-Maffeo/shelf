@@ -10,7 +10,9 @@ CREATE TABLE opere (
     tipo ENUM('film','libro','fumetto','serie_tv') NOT NULL,
     titolo VARCHAR(64) NOT NULL,
     creatore VARCHAR(64),   -- Regista, autore, o ideatore, a seconda del tipo
-    genere VARCHAR(16) NOT NULL,
+    genere_1 VARCHAR(16) NOT NULL,
+    genere_2 VARCHAR(16) DEFAULT NULL,
+    genere_3 VARCHAR(16) DEFAULT NULL,
     copertina_url VARCHAR(256) DEFAULT NULL,
     valutazione TINYINT UNSIGNED NOT NULL,  -- 1-5, controllato lato PHP
     descrizione TEXT,
