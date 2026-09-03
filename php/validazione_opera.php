@@ -34,9 +34,6 @@
         if ($copertina_url !== "" && !filter_var($copertina_url, FILTER_VALIDATE_URL)) {
             return "Il link della copertina non è valido!";
         }
-        if (strlen($segnalibro) > 32) {
-            return "Il segnalibro è troppo lungo (max 32 caratteri)!";
-        }
         return null;    // null se tutto valido
     }
 

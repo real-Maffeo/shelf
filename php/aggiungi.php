@@ -22,7 +22,7 @@
                     <div id="errore"><?= htmlspecialchars($_GET["errore"]) ?></div> <!-- Stampa errore -->
                 <?php endif; ?>
                 
-                <form method="POST">
+                <form method="POST" novalidate>
                     <label for="tipo">Categoria:</label>
                     <select name="tipo" id="tipo" required>
                         <?php foreach ($TIPI_VALIDI as $t): ?>
@@ -96,7 +96,7 @@
                 <script>
                     const GENERI = <?= json_encode(GENERI) ?>;
                 </script>
-                <script src="../js/aggiungi.js"></script>
+                <script src="../js/opera-form.js"></script>
             </body>
         </html>
         <?php

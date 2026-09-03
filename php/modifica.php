@@ -49,7 +49,7 @@
                     <div id="errore"><?= htmlspecialchars($_GET["errore"]) ?></div>
                 <?php endif; ?>
 
-                <form method="POST">
+                <form method="POST" novalidate>
                     <input type="hidden" name="id" value="<?= (int)$opera['id'] ?>">
 
                     <label for="tipo">Categoria:</label>
@@ -141,7 +141,7 @@
         $stmtCheck->bind_param("ii", $id, $utente_id);
         $stmtCheck->execute();
         if ($stmtCheck->get_result()->num_rows === 0) {
-            header("Location: lista.php?messaggio=" . urlencode("Opera non trovata."));
+            header("Location: lista.php?messaggio=" . urlencode("Opera non trovata!"));
             exit;
         }
 
@@ -156,7 +156,7 @@
         $descrizione = strip_tags(trim($_POST["descrizione"] ?? ""));
         $segnalibro = strip_tags(trim($_POST["segnalibro"] ?? ""));
 
-        $errore = validaOpera($tipo, $titolo, $creatore, $genere_1, $genere_2, $genere_3, $valutazione, $descrizione, $copertina_url, $segnalibro, $TIPI_VALIDI);
+        $errore = validaOpera($tipo, $titolo, $creatore, $genere_1, $genere_2, $genere_3, $valutazione, $descrizione, $copertina_url, $TIPI_VALIDI);
         if ($errore !== null) {
             erroreModifica($id, $errore);
         }
@@ -166,7 +166,7 @@
         $segnalibro = costruisciSegnalibro($tipo, $segnalibro, $stagione, $episodio);
 
         if ($segnalibro !== null && strlen($segnalibro) > 32) {
-            erroreModifica($id, "Segnalibro troppo lungo.");
+            erroreModifica($id, "Segnalibro troppo lungo!");
         }
 
         $creatore_db = $creatore !== "" ? $creatore : null;
@@ -188,7 +188,7 @@
 
         if (!$stmt->execute()) {
             http_response_code(500);
-            exit("Errore durante il salvataggio.");
+            exit("Errore durante il salvataggio");
         }
 
         header("Location: dettaglio.php?id=" . (int)$id . "&messaggio=" . urlencode("Modifiche salvate!"));

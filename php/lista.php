@@ -12,7 +12,7 @@
     }
 
     $stmt = $mysqli->prepare(
-        "SELECT id, titolo, creatore, genere, copertina_url, valutazione, descrizione, segnalibro, preferito
+        "SELECT id, titolo, creatore, genere_1, genere_2, genere_3, copertina_url, valutazione, descrizione, segnalibro, preferito
          FROM opere WHERE utente_id = ? AND tipo = ? ORDER BY data_inserimento DESC"
     );
     $utente_id = $_SESSION["utente_id"];

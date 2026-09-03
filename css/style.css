@@ -5,3 +5,18 @@
     border-radius: 6px;
     margin-bottom: 16px;
 }
+
+#contenuto {
+    display: flex;
+    gap: 24px;
+}
+#filtri {
+    width: 200px;
+    flex-shrink: 0;
+}
+#griglia {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
