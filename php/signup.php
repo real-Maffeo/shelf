@@ -1,14 +1,9 @@
 <?php
     require_once "dbaccess.php";
-    // header("Content-Type: application/json");
 
     // https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status#client_error_responses per i codici di riposta
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
         http_response_code(405);
-        /*
-        echo json_encode(["errore" => "Metodo non consentito!"]);
-        exit;
-        */
         exit("Metodo non consentito!");
     }
 
@@ -53,7 +48,5 @@
         }
     }
 
-    // $_SESSION["username"] = $username;
-    // echo json_encode(["status" => "successo", "messaggio" => "Registrazione avvenuta con successo", "username" => $username]);
-    header("Location: ../index.html?registrato=1");
+    header("Location: ../index.html?successo=" . urlencode("Registrazione completata con successo ദ്ദി(｡•̀ ,<)~✩‧₊"));  // Alternativa: ( ˶ˆᗜˆ˵ )     Link: https://emojicombos.com/happy
 ?>

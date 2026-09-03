@@ -73,6 +73,7 @@
 
                     <label for="commento">Commento: </label>
                     <textarea id="commento" name="commento" maxlength="512" rows="4"></textarea>
+                    <span id="contatore-descrizione">0/512</span>
 
                     <br><br>
 
@@ -153,7 +154,7 @@
             exit("Errore durante il salvataggio");
         }
 
-        header("Location: lista.php?tipo=" . urlencode($tipo) . "&messaggio=" . urlencode("Aggiunto con successo!"));
+        header("Location: lista.php?tipo=" . urlencode($tipo) . "&successo=" . urlencode("Aggiunto con successo!"));
         exit;
 
     } else {

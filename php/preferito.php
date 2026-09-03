@@ -2,9 +2,11 @@
     require_once "dbaccess.php";
     header("Content-Type: application/json");
 
-    if (!isset($_SESSION["utente_id"])) {
+    if (isset($_SESSION["utente_id"]) && isset($_SESSION["ultimo_accesso"]) && (time() - $_SESSION["ultimo_accesso"]) > 3600) {
+        session_unset();
+        session_destroy();
         http_response_code(401);
-        echo json_encode(["errore" => "Non autenticato"]);
+        echo json_encode(["errore" => "Sessione scaduta"]);
         exit;
     }
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {

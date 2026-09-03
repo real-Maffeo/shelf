@@ -61,6 +61,14 @@ function cambiaTipo() {
     }
 }
 
+const descrizione = document.getElementById("descrizione");
+const contatore = document.getElementById("contatore-descrizione");
+if (descrizione && contatore) {
+    descrizione.addEventListener("input", () => {
+        contatore.textContent = `${descrizione.value.length}/512`;
+    });
+}
+
 const valutazioneInput = document.getElementById("valutazione");
 const stelle = document.querySelectorAll(".stella");
 

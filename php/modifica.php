@@ -9,7 +9,7 @@
     $utente_id = $_SESSION["utente_id"];
 
     if ($id === false) {
-        header("Location: lista.php?messaggio=" . urlencode("Opera non trovata."));
+        header("Location: lista.php?avviso=" . urlencode("Opera non trovata!"));
         exit;
     }
 
@@ -21,7 +21,7 @@
         $res = $stmt->get_result();
 
         if ($res->num_rows === 0) {
-            header("Location: lista.php?messaggio=" . urlencode("Opera non trovata."));
+            header("Location: lista.php?avviso=" . urlencode("Opera non trovata!"));
             exit;
         }
         $opera = $res->fetch_assoc();
@@ -99,6 +99,7 @@
 
                     <label for="descrizione">Commento:</label>
                     <textarea id="descrizione" name="descrizione" maxlength="512" rows="4"><?= htmlspecialchars($opera['descrizione'] ?? '') ?></textarea>
+                    <span id="contatore-descrizione">0/512</span>
 
                     <br><br>
 
@@ -141,7 +142,7 @@
         $stmtCheck->bind_param("ii", $id, $utente_id);
         $stmtCheck->execute();
         if ($stmtCheck->get_result()->num_rows === 0) {
-            header("Location: lista.php?messaggio=" . urlencode("Opera non trovata!"));
+            header("Location: lista.php?avviso=" . urlencode("Opera non trovata!"));
             exit;
         }
 
@@ -191,7 +192,7 @@
             exit("Errore durante il salvataggio");
         }
 
-        header("Location: dettaglio.php?id=" . (int)$id . "&messaggio=" . urlencode("Modifiche salvate!"));
+        header("Location: dettaglio.php?id=" . (int)$id . "&successo=" . urlencode("Modifiche salvate!"));
         exit;
 
     } else {

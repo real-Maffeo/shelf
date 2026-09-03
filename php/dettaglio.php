@@ -8,7 +8,7 @@
     $utente_id = $_SESSION["utente_id"];
 
     if ($id === false) {
-        header("Location: lista.php?messaggio=" . urlencode("Opera non trovata."));
+        header("Location: lista.php?avviso=" . urlencode("Opera non trovata!"));
         exit;
     }
 
@@ -18,7 +18,7 @@
     $res = $stmt->get_result();
 
     if ($res->num_rows === 0) {
-        header("Location: lista.php?messaggio=" . urlencode("Opera non trovata."));
+        header("Location: lista.php?avviso=" . urlencode("Opera non trovata!"));
         exit;
     }
 
@@ -42,8 +42,8 @@
         <a href="lista.php?tipo=<?= urlencode($opera["tipo"]) ?>">&larr; Torna alla lista</a>
 
         <div id="dettaglio">
-            <img src="<?= htmlspecialchars($opera["copertina_url"] ?: "../images/placeholder_{$opera['tipo']}.png") ?>"
-                 onerror="this.src='../images/placeholder_<?= htmlspecialchars($opera['tipo']) ?>.png'"
+            <img src="<?= htmlspecialchars($opera["copertina_url"] ?: "../images/placeholder_{$opera['tipo']}.svg") ?>"
+                 onerror="this.src='../images/placeholder_<?= htmlspecialchars($opera['tipo']) ?>.svg'"
                  alt="Copertina di <?= htmlspecialchars($opera["titolo"]) ?>">
 
             <h1><?= htmlspecialchars($opera["titolo"]) ?></h1>

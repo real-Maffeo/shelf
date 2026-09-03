@@ -16,7 +16,7 @@
     $res = $stmt->get_result();
 
     if ($res->num_rows === 0) {
-        header("Location: lista.php?tipo=" . urlencode($tipo) . "&messaggio=" . urlencode("Non hai ancora nulla da consigliarti in questa categoria!"));
+        header("Location: lista.php?tipo=" . urlencode($tipo) . "&avviso=" . urlencode("Non c'e' ancora nulla da consigliarti in questa categoria!"));
         exit;
     }
 

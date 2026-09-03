@@ -32,8 +32,11 @@
         <link href="../css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <?php if (isset($_GET["messaggio"])): ?>
-            <div id="messaggio"><?= htmlspecialchars($_GET["messaggio"]) ?></div>
+        <?php if (isset($_GET["successo"])): ?>
+        <div id="successo"><?= htmlspecialchars($_GET["successo"]) ?></div>
+        <?php endif; ?>
+        <?php if (isset($_GET["avviso"])): ?>
+            <div id="avviso"><?= htmlspecialchars($_GET["avviso"]) ?></div>
         <?php endif; ?>
 
         <nav>
@@ -44,6 +47,7 @@
             <?php endforeach; ?>
             <a href="aggiungi.php">+ Aggiungi</a>
             <a href="consigliami.php?tipo=<?= urlencode($tipo) ?>">Consigliami qualcosa</a>
+            <a href="logout.php">Esci</a>
         </nav>
 
         <h1><?= htmlspecialchars($etichette[$tipo]) ?></h1>
@@ -96,9 +100,9 @@
                         </button>
 
                         <a href="dettaglio.php?id=<?= (int)$opera["id"] ?>">
-                            <img src="<?= htmlspecialchars($opera["copertina_url"] ?: "../images/placeholder_{$tipo}.png") ?>"
-                                 onerror="this.src='../images/placeholder_<?= htmlspecialchars($tipo) ?>.png'"
-                                 alt="Copertina di <?= htmlspecialchars($opera["titolo"]) ?>">
+                            <img src="<?= htmlspecialchars($opera["copertina_url"] ?: "../images/placeholder_{$tipo}.svg") ?>"
+                            onerror="this.onerror=null; this.src='../images/placeholder_<?= htmlspecialchars($tipo) ?>.svg'"
+                                alt="Copertina di <?= htmlspecialchars($opera["titolo"]) ?>">
                             <p class="titolo"><?= htmlspecialchars($opera["titolo"]) ?></p>
                         </a>
 

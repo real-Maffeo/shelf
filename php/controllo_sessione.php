@@ -1,19 +1,17 @@
 <?php
     require_once "dbaccess.php";
-    // header("Content-Type: application/json");
 
-    /*
-    if (isset($_SESSION["username"])) {     // Trovato utente loggato
-        echo json_encode(["status" => "ok", "username" => $_SESSION["utente_id"]]);
+    $TIMEOUT_SECONDI = 3600; // 1 ora
+
+    if (isset($_SESSION["utente_id"])) {
+        if (isset($_SESSION["ultimo_accesso"]) && (time() - $_SESSION["ultimo_accesso"]) > $TIMEOUT_SECONDI) {
+            session_unset();
+            session_destroy();
+            header("Location: ../index.html?errore=" . urlencode("Sessione scaduta, effettua nuovamente il login."));
+            exit;
+        }
+        $_SESSION["ultimo_accesso"] = time(); // Ricordarsi perche' e qua'
     } else {
-        http_response_code(401);
-        echo json_encode(["errore" => "Non sei autenticato!"]);
-        header("Location: ../index.html");
-    }
-    */
-
-    if (!isset($_SESSION["utente_id"])) {
-        http_response_code(401);
         header("Location: ../index.html?errore=" . urlencode("Devi effettuare il login!"));
         exit;
     }

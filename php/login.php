@@ -1,6 +1,5 @@
 <?php
     require_once "dbaccess.php";
-    // header("Content-Type: application/json");
 
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
         http_response_code(405);
@@ -40,6 +39,7 @@
     }
 
     $_SESSION["utente_id"] = $row["id"];
+    $_SESSION["ultimo_accesso"] = time();
     $_SESSION["username"] = $username;
     // echo json_encode(["status" => "successo", "messaggio" => "Login avvenuto con successo", "username" => $username]);
     header("Location: lista.php?messaggio=" . urlencode("Login avvenuto con successo"));

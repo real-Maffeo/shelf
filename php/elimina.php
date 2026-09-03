@@ -11,7 +11,7 @@
     $utente_id = $_SESSION["utente_id"];
 
     if ($id === false) {
-        header("Location: lista.php?messaggio=" . urlencode("Opera non trovata."));
+        header("Location: lista.php?avviso=" . urlencode("Opera non trovata!"));
         exit;
     }
 
@@ -21,7 +21,7 @@
     $res = $stmt->get_result();
 
     if ($res->num_rows === 0) {
-        header("Location: lista.php?messaggio=" . urlencode("Opera non trovata."));
+        header("Location: lista.php?avviso=" . urlencode("Opera non trovata!"));
         exit;
     }
     $tipo = $res->fetch_assoc()["tipo"];
@@ -31,9 +31,9 @@
 
     if (!$stmtDel->execute()) {
         http_response_code(500);
-        exit("Errore durante l'eliminazione.");
+        exit("Errore durante l'eliminazione");
     }
 
-    header("Location: lista.php?tipo=" . urlencode($tipo) . "&messaggio=" . urlencode("Eliminato con successo."));
+    header("Location: lista.php?tipo=" . urlencode($tipo) . "&successo=" . urlencode("Eliminato con successo"));
     exit;
 ?>
