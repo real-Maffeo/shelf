@@ -43,7 +43,7 @@
                 <title>Modifica</title>
                 <link href="../css/style.css" rel="stylesheet" type="text/css">
             </head>
-            <body>
+            <body class="pagina-form">
                 <h1>Modifica</h1>
                 <?php if (isset($_GET["errore"])): ?>
                     <div id="errore"><?= htmlspecialchars($_GET["errore"]) ?></div>
@@ -55,8 +55,8 @@
                     <label for="tipo">Categoria:</label>
                     <select name="tipo" id="tipo" required>
                         <?php foreach ($TIPI_VALIDI as $t): ?>
-                            <option value="<?= htmlspecialchars($t) ?>" <?= $t === $opera["tipo"] ? "selected" : "" ?>>
-                                <?= htmlspecialchars(ucfirst(str_replace('_', ' ', $t))) ?>
+                            <option value="<?= htmlspecialchars($t) ?>" <?= $t === $opera["tipo"] ? "selected" : "" ?>> 
+                            <?= htmlspecialchars(ETICHETTE_TIPO[$t]) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -127,6 +127,7 @@
                     const VALUTAZIONE_ATTUALE = <?= (int)$opera["valutazione"] ?>;
                 </script>
                 <script src="../js/opera-form.js"></script>
+                <script src="../js/ui.js"></script>
             </body>
         </html>
         <?php

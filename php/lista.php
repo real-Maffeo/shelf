@@ -20,7 +20,7 @@
     $stmt->execute();
     $risultati = $stmt->get_result();
 
-    $etichette = ["film" => "Film", "libro" => "Libri", "fumetto" => "Fumetti", "serie_tv" => "Serie TV"];
+    $etichette = ETICHETTE_TIPO;
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +47,9 @@
             <?php endforeach; ?>
             <a href="aggiungi.php">+ Aggiungi</a>
             <a href="consigliami.php?tipo=<?= urlencode($tipo) ?>">Consigliami qualcosa</a>
+            <button id="toggle-tema">🌙</button>
+            <a href="../html/documentazione.html">Scopri Shelf</a>
+            <span>Ciao, <?= htmlspecialchars($_SESSION["username"]) ?></span>
             <a href="logout.php">Esci</a>
         </nav>
 
@@ -99,6 +102,7 @@
                             <?= $opera["preferito"] ? "&#9829;" : "&#9825;" ?>
                         </button>
 
+                        <!-- Tutti gli SVG Vectors sono presi da: https://www.svgrepo.com/ -->
                         <a href="dettaglio.php?id=<?= (int)$opera["id"] ?>">
                             <img src="<?= htmlspecialchars($opera["copertina_url"] ?: "../images/placeholder_{$tipo}.svg") ?>"
                             onerror="this.onerror=null; this.src='../images/placeholder_<?= htmlspecialchars($tipo) ?>.svg'"
@@ -113,5 +117,6 @@
             </div>
         </div>
         <script src="../js/lista.js"></script>
+        <script src="../js/ui.js"></script>
     </body>
 </html>

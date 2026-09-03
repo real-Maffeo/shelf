@@ -36,7 +36,8 @@
     </head>
     <body>
         <?php if (isset($_GET["messaggio"])): ?>
-            <div id="messaggio"><?= htmlspecialchars($_GET["messaggio"]) ?></div>
+            <div id="successo"><?= isset($_GET["successo"]) ? htmlspecialchars($_GET["successo"]) : "" ?></div>
+            <div id="avviso"><?= isset($_GET["avviso"]) ? htmlspecialchars($_GET["avviso"]) : "" ?></div>
         <?php endif; ?>
 
         <a href="lista.php?tipo=<?= urlencode($opera["tipo"]) ?>">&larr; Torna alla lista</a>
@@ -73,5 +74,6 @@
                 </form>
             </div>
         </div>
+        <script src="../js/ui.js"></script>
     </body>
 </html>

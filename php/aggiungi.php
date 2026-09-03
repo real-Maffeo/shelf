@@ -16,17 +16,19 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Aggiungi</title>
             </head>
-            <body>
+            <body class="pagina-form">
                 <h1>Aggiungi nuovo titolo</h1>
                 <?php if (isset($_GET["errore"])): ?>
                     <div id="errore"><?= htmlspecialchars($_GET["errore"]) ?></div> <!-- Stampa errore -->
                 <?php endif; ?>
+
+                <button type="button" onclick="history.back()">&larr; Indietro</button>
                 
                 <form method="POST" novalidate>
                     <label for="tipo">Categoria:</label>
                     <select name="tipo" id="tipo" required>
                         <?php foreach ($TIPI_VALIDI as $t): ?>
-                            <option value="<?= htmlspecialchars($t) ?>"><?= htmlspecialchars(ucfirst(str_replace('_', ' ', $t))) ?></option>
+                            <option value="<?= htmlspecialchars($t) ?>"><?= htmlspecialchars(ETICHETTE_TIPO[$t]) ?></option>
                         <?php endforeach; ?>
                     </select>
 
@@ -98,6 +100,7 @@
                     const GENERI = <?= json_encode(GENERI) ?>;
                 </script>
                 <script src="../js/opera-form.js"></script>
+                <script src="../js/ui.js"></script>
             </body>
         </html>
         <?php

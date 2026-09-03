@@ -48,5 +48,11 @@
         }
     }
 
+    $_SESSION["utente_id"] = $mysqli->insert_id;
+    $_SESSION["utente_id"] = $mysqli->insert_id;
+    $_SESSION["username"] = $username;
+    $_SESSION["ultimo_accesso"] = time();
+
     header("Location: ../index.html?successo=" . urlencode("Registrazione completata con successo ദ്ദി(｡•̀ ,<)~✩‧₊"));  // Alternativa: ( ˶ˆᗜˆ˵ )     Link: https://emojicombos.com/happy
+    exit;
 ?>
