@@ -1,14 +1,23 @@
-// Tema scuro: applica subito la preferenza salvata, prima che la pagina sia visibile
+// Tema scuro/chiaro
 if (localStorage.getItem("tema") === "scuro") {
     document.body.classList.add("scuro");
 }
 
+function aggiornaIconaTema() {
+    const bottone = document.getElementById("toggle-tema");
+    if (bottone) {
+        bottone.textContent = document.body.classList.contains("scuro") ? "☀️" : "🌙";
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    aggiornaIconaTema();
     const bottoneTema = document.getElementById("toggle-tema");
     if (bottoneTema) {
         bottoneTema.addEventListener("click", () => {
             document.body.classList.toggle("scuro");
             localStorage.setItem("tema", document.body.classList.contains("scuro") ? "scuro" : "chiaro");
+            aggiornaIconaTema();
         });
     }
 

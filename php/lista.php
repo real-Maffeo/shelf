@@ -39,18 +39,23 @@
             <div id="avviso"><?= htmlspecialchars($_GET["avviso"]) ?></div>
         <?php endif; ?>
 
+        <!-- lista.php -->
         <nav>
-            <?php foreach ($TIPI_VALIDI as $t): ?>
-                <a href="lista.php?tipo=<?= urlencode($t) ?>"<?= $t === $tipo ? ' class="attivo"' : '' ?>>
-                    <?= htmlspecialchars($etichette[$t]) ?>
-                </a>
-            <?php endforeach; ?>
-            <a href="aggiungi.php">+ Aggiungi</a>
-            <a href="consigliami.php?tipo=<?= urlencode($tipo) ?>">Consigliami qualcosa</a>
-            <button id="toggle-tema">🌙</button>
-            <a href="../html/documentazione.html">Scopri Shelf</a>
-            <span>Ciao, <?= htmlspecialchars($_SESSION["username"]) ?></span>
-            <a href="logout.php">Esci</a>
+            <div class="nav-categorie">
+                <?php foreach ($TIPI_VALIDI as $t): ?>
+                    <a href="lista.php?tipo=<?= urlencode($t) ?>"<?= $t === $tipo ? ' class="attivo"' : '' ?>>
+                        <?= htmlspecialchars($etichette[$t]) ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+            <div class="nav-azioni">
+                <a href="aggiungi.php">+ Aggiungi</a>
+                <a href="consigliami.php?tipo=<?= urlencode($tipo) ?>">Consigliami qualcosa</a>
+                <button id="toggle-tema">🌙</button>
+                <a href="../html/documentazione.html">Scopri Shelf</a>
+                <span>Ciao, <?= htmlspecialchars($_SESSION["username"]) ?></span>
+                <a href="logout.php">Esci</a>
+            </div>
         </nav>
 
         <h1><?= htmlspecialchars($etichette[$tipo]) ?></h1>

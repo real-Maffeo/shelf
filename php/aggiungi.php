@@ -19,7 +19,7 @@
             <body class="pagina-form">
                 <h1>Aggiungi nuovo titolo</h1>
                 <?php if (isset($_GET["errore"])): ?>
-                    <div id="errore"><?= htmlspecialchars($_GET["errore"]) ?></div> <!-- Stampa errore -->
+                    <div id="errore"><?= htmlspecialchars($_GET["errore"]) ?></div>
                 <?php endif; ?>
 
                 <button type="button" onclick="history.back()">&larr; Indietro</button>
@@ -75,7 +75,7 @@
 
                     <label for="commento">Commento: </label>
                     <textarea id="commento" name="commento" maxlength="512" rows="4"></textarea>
-                    <span id="contatore-descrizione">0/512</span>
+                    <span id="contatore-commento">0/512</span>
 
                     <br><br>
 

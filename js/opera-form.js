@@ -61,8 +61,9 @@ function cambiaTipo() {
     }
 }
 
-const descrizione = document.getElementById("descrizione");
-const contatore = document.getElementById("contatore-descrizione");
+// Contatore caratteri commento
+const descrizione = document.getElementById("commento");
+const contatore = document.getElementById("contatore-commento");
 if (descrizione && contatore) {
     descrizione.addEventListener("input", () => {
         contatore.textContent = `${descrizione.value.length}/512`;

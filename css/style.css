@@ -14,6 +14,7 @@ body {
 
 body.pagina-form {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -69,7 +70,15 @@ nav {
     margin-bottom: 20px;
     flex-wrap: wrap;
 }
-
+.nav-categorie, .nav-azioni {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.nav-azioni {
+    margin-left: auto;
+}
 nav a {
     padding: 8px 16px;
     border-radius: 8px;
@@ -77,21 +86,23 @@ nav a {
     font-weight: 500;
     font-size: 0.9rem;
 }
-
 nav a.attivo {
     background: #eef0ff;
     color: #3b5bdb;
 }
-
-nav a:last-child,
-nav a:nth-last-child(2) {
-    margin-left: auto;
+.nav-azioni a {
     background: #f0f0f2;
 }
-
 nav a:hover {
     text-decoration: none;
     background: #f0f0f2;
+}
+#toggle-tema {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
 }
 
 /* --- Layout contenuto: sidebar + griglia --- */
@@ -160,13 +171,13 @@ nav a:hover {
 .card img {
     width: 100%;
     aspect-ratio: 2/3;
-    object-fit: contain;   /* era cover */
+    object-fit: contain;
     display: block;
     border-radius: 6px;
 }
 
 .card {
-    width: 130px;   /* era 150px, leggermente più piccola come richiesto */
+    width: 130px;
 }
 
 .card .titolo {
@@ -246,7 +257,7 @@ form button[type="submit"]:hover {
     background: #2f47ad;
 }
 
-/* --- Stelline valutazione --- */
+/* --- Stelle valutazione --- */
 #stelle {
     font-size: 2.2rem;
     color: #f5a623;
@@ -294,6 +305,7 @@ form button[type="submit"]:hover {
     display: inline-block;
     margin: 0;
 }
+
 #dettaglio .azioni a,
 #dettaglio .azioni button {
     display: inline-block;
@@ -320,6 +332,7 @@ form button[type="submit"]:hover {
     color: #b3261e;
 }
 
+/* --- Modalita' notte --- */
 body.scuro {
     background: #0b1220;
     color: #e0e6f0;

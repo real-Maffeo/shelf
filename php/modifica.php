@@ -97,9 +97,9 @@
 
                     <br><br>
 
-                    <label for="descrizione">Commento:</label>
-                    <textarea id="descrizione" name="descrizione" maxlength="512" rows="4"><?= htmlspecialchars($opera['descrizione'] ?? '') ?></textarea>
-                    <span id="contatore-descrizione">0/512</span>
+                    <label for="commento">Commento:</label>
+                    <textarea id="commento" name="commento" maxlength="512" rows="4"><?= htmlspecialchars($opera['descrizione'] ?? '') ?></textarea>
+                    <span id="contatore-commento">0/512</span>
 
                     <br><br>
 
@@ -155,7 +155,7 @@
         $genere_3 = strip_tags(trim($_POST["genere_3"] ?? ""));
         $copertina_url = strip_tags(trim($_POST["copertina_url"] ?? ""));
         $valutazione = filter_var($_POST["valutazione"] ?? "", FILTER_VALIDATE_INT);
-        $descrizione = strip_tags(trim($_POST["descrizione"] ?? ""));
+        $descrizione = strip_tags(trim($_POST["commento"] ?? ""));
         $segnalibro = strip_tags(trim($_POST["segnalibro"] ?? ""));
 
         $errore = validaOpera($tipo, $titolo, $creatore, $genere_1, $genere_2, $genere_3, $valutazione, $descrizione, $copertina_url, $TIPI_VALIDI);
