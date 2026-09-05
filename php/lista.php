@@ -8,7 +8,7 @@
 
     $tipo = $_GET["tipo"] ?? $TIPI_VALIDI[0];
     if (!in_array($tipo, $TIPI_VALIDI, true)) {
-        $tipo = $TIPI_VALIDI[0]; // fallback silenzioso su un tipo valido, niente errore per un parametro sbagliato nell'URL
+        $tipo = $TIPI_VALIDI[0];
     }
 
     $stmt = $mysqli->prepare(
@@ -31,6 +31,7 @@
         <title>Shelf - <?= htmlspecialchars($etichette[$tipo]) ?></title>
         <link href="../css/style.css" rel="stylesheet" type="text/css">
     </head>
+
     <body>
         <?php if (isset($_GET["successo"])): ?>
         <div id="successo"><?= htmlspecialchars($_GET["successo"]) ?></div>
@@ -39,7 +40,7 @@
             <div id="avviso"><?= htmlspecialchars($_GET["avviso"]) ?></div>
         <?php endif; ?>
 
-        <!-- lista.php -->
+        <!-- Barra di navigazione -->
         <nav>
             <div class="nav-categorie">
                 <?php foreach ($TIPI_VALIDI as $t): ?>
@@ -48,12 +49,14 @@
                     </a>
                 <?php endforeach; ?>
             </div>
-            <div class="nav-azioni">
+            <div class="nav-centro">
                 <a href="aggiungi.php">+ Aggiungi</a>
                 <a href="consigliami.php?tipo=<?= urlencode($tipo) ?>">Consigliami qualcosa</a>
+            </div>
+            <div class="nav-destra">
                 <button id="toggle-tema">🌙</button>
-                <a href="../html/documentazione.html">Scopri Shelf</a>
                 <span>Ciao, <?= htmlspecialchars($_SESSION["username"]) ?></span>
+                <a href="../html/documentazione.html">Scopri Shelf</a>
                 <a href="logout.php">Esci</a>
             </div>
         </nav>
@@ -107,7 +110,7 @@
                             <?= $opera["preferito"] ? "&#9829;" : "&#9825;" ?>
                         </button>
 
-                        <!-- Tutti gli SVG Vectors sono presi da: https://www.svgrepo.com/ -->
+                        <!-- Tutti gli SVG Vectors sono presi da: https://www.svgrepo.com/ (placeholder) -->
                         <a href="dettaglio.php?id=<?= (int)$opera["id"] ?>">
                             <img src="<?= htmlspecialchars($opera["copertina_url"] ?: "../images/placeholder_{$tipo}.svg") ?>"
                             onerror="this.onerror=null; this.src='../images/placeholder_<?= htmlspecialchars($tipo) ?>.svg'"

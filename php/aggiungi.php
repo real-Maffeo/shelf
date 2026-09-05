@@ -16,89 +16,90 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Aggiungi</title>
             </head>
+
             <body class="pagina-form">
                 <h1>Aggiungi nuovo titolo</h1>
                 <?php if (isset($_GET["errore"])): ?>
                     <div id="errore"><?= htmlspecialchars($_GET["errore"]) ?></div>
                 <?php endif; ?>
 
-                <button type="button" onclick="history.back()">&larr; Indietro</button>
+                <button type="button" class="btn-indietro" onclick="history.back()">&larr; Indietro</button>
                 
-                <form method="POST" novalidate>
-                    <label for="tipo">Categoria:</label>
-                    <select name="tipo" id="tipo" required>
-                        <?php foreach ($TIPI_VALIDI as $t): ?>
-                            <option value="<?= htmlspecialchars($t) ?>"><?= htmlspecialchars(ETICHETTE_TIPO[$t]) ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                <form method="POST" novalidate class="form-opera">
+                    <div class="campo">
+                        <label for="tipo">Categoria:</label>
+                        <select name="tipo" id="tipo" required>
+                            <?php foreach ($TIPI_VALIDI as $t): ?>
+                                <option value="<?= htmlspecialchars($t) ?>"><?= htmlspecialchars(ETICHETTE_TIPO[$t]) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
-                    <br><br>
+                    <div class="campo">
+                        <label for="titolo">Titolo:</label>
+                        <input type="text" name="titolo" id="titolo" maxlength="64" required>
+                    </div>
 
-                    <label for="titolo">Titolo:</label>
-                    <input type="text" name="titolo" id="titolo" maxlength="64" required>
+                    <div class="campo">
+                        <label for="creatore" id="labelCreatore">Regista:</label>
+                        <input type="text" name="creatore" id="creatore" maxlength="64">
+                    </div>
+                    
+                    <div class="campo">
+                        <label for="genere_1">Genere:</label>
+                        <select name="genere_1" id="genere_1" required></select>
+                    </div>
 
-                    <br><br>
+                    <div class="campo">
+                        <label for="genere_2">Genere secondario:</label>
+                        <select name="genere_2" id="genere_2"><option value="">-- Nessuno --</option></select>
+                    </div>
+                    
+                    <div class="campo">
+                        <label for="genere_3">Terzo genere:</label>
+                        <select name="genere_3" id="genere_3"><option value="">-- Nessuno --</option></select>
+                    </div>
 
-                    <label for="creatore" id="labelCreatore">Regista:</label>
-                    <input type="text" name="creatore" id="creatore" maxlength="64">
+                    <div class="campo">
+                        <label for="copertina_url">URL copertina:</label>
+                        <input type="url" name="copertina_url" id="copertina_url" maxlength="256">
+                    </div>
 
-                    <br><br>
+                    <div class="campo">
+                        <label>Valutazione:</label>
+                        <span id="stelle" data-valore="0">
+                            <span class="stella" data-valore="1">&#9734;</span><span class="stella" data-valore="2">&#9734;</span><span class="stella" data-valore="3">&#9734;</span><span class="stella" data-valore="4">&#9734;</span><span class="stella" data-valore="5">&#9734;</span>
+                        </span>
+                        <input type="hidden" name="valutazione" id="valutazione" value="0" required>
+                    </div>
 
-                    <label for="genere_1">Genere:</label>
-                    <select name="genere_1" id="genere_1" required>
-                    </select>
+                    <div class="campo campo-larga">
+                        <label for="commento">Commento:</label>
+                        <textarea id="commento" name="commento" maxlength="512" rows="4"></textarea>
+                        <span id="contatore-descrizione">0/512</span>
+                    </div>
 
-                    <label for="genere_2">Genere secondario (facoltativo):</label>
-                    <select name="genere_2" id="genere_2">
-                        <option value="">-- Nessuno --</option>
-                    </select>
-
-                    <label for="genere_3">Terzo genere (facoltativo):</label>
-                    <select name="genere_3" id="genere_3">
-                        <option value="">-- Nessuno --</option>
-                    </select>
-
-                    <br><br>
-
-                    <label for="copertina_url">URL copertina:</label>
-                    <input type="url" name="copertina_url" id="copertina_url" maxlength="256">
-
-                    <br><br>
-
-                    <label>Valutazione:</label>
-                    <span id="stelle" data-valore="0">
-                        <span class="stella" data-valore="1">&#9734;</span><span class="stella" data-valore="2">&#9734;</span><span class="stella" data-valore="3">&#9734;</span><span class="stella" data-valore="4">&#9734;</span><span class="stella" data-valore="5">&#9734;</span>
-                    </span>
-                    <input type="hidden" name="valutazione" id="valutazione" value="0" required>
-
-                    <br><br>
-
-                    <label for="commento">Commento: </label>
-                    <textarea id="commento" name="commento" maxlength="512" rows="4"></textarea>
-                    <span id="contatore-commento">0/512</span>
-
-                    <br><br>
-
-                    <div id="blocco_segnalibro">
+                    <div class="campo campo-larga" id="blocco_segnalibro">
                         <label for="segnalibro" id="labelSegnalibro">Fino a dove sei arrivato:</label>
                         <input type="text" name="segnalibro" id="segnalibro" maxlength="32">
                     </div>
 
-                    <div id="datiSerie" style="display: none;">
+                    <div class="campo campo-larga" id="datiSerie" style="display: none;">
                         <label for="stagione">Stagione:</label>
                         <input type="number" name="stagione" id="stagione" min="1">
-
                         <label for="episodio">Episodio:</label>
                         <input type="number" name="episodio" id="episodio" min="1">
                     </div>
 
-                    <br><br>
-                    <button type="submit">Salva</button>
+                    <div class="campo campo-larga">
+                        <button type="submit">Salva</button>
+                    </div>
                 </form>
 
                 <script>
                     const GENERI = <?= json_encode(GENERI) ?>;
                 </script>
+
                 <script src="../js/opera-form.js"></script>
                 <script src="../js/ui.js"></script>
             </body>

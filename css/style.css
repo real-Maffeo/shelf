@@ -2,7 +2,6 @@
 * {
     box-sizing: border-box;
 }
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: #f7f7f9;
@@ -11,7 +10,6 @@ body {
     padding: 24px;
     line-height: 1.5;
 }
-
 body.pagina-form {
     display: flex;
     flex-direction: column;
@@ -19,17 +17,14 @@ body.pagina-form {
     align-items: center;
     min-height: 100vh;
 }
-
 h1 {
     font-size: 1.6rem;
     margin-bottom: 16px;
 }
-
 a {
     color: #3b5bdb;
     text-decoration: none;
 }
-
 a:hover {
     text-decoration: underline;
 }
@@ -42,7 +37,6 @@ a:hover {
     border-radius: 6px;
     margin-bottom: 16px;
 }
-
 #successo {
     background: #e8f4ea;
     color: #1e6b34;
@@ -50,7 +44,6 @@ a:hover {
     border-radius: 6px;
     margin-bottom: 16px;
 }
-
 #avviso {
     background: #fff8e1;
     color: #8a6d00;
@@ -62,22 +55,29 @@ a:hover {
 /* --- Navigazione a tab (lista.php) --- */
 nav {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     background: #fff;
     border-radius: 10px;
-    padding: 6px;
+    padding: 6px 16px;
     margin-bottom: 20px;
     flex-wrap: wrap;
+}
+.nav-categorie, .nav-centro, .nav-destra {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.nav-centro a, .nav-destra a {
+    background: #f0f0f2;
 }
 .nav-categorie, .nav-azioni {
     display: flex;
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
-}
-.nav-azioni {
-    margin-left: auto;
 }
 nav a {
     padding: 8px 16px;
@@ -111,7 +111,6 @@ nav a:hover {
     gap: 24px;
     align-items: flex-start;
 }
-
 #filtri {
     width: 200px;
     flex-shrink: 0;
@@ -119,7 +118,6 @@ nav a:hover {
     border-radius: 10px;
     padding: 16px;
 }
-
 #filtri p {
     font-size: 0.8rem;
     font-weight: 600;
@@ -127,11 +125,9 @@ nav a:hover {
     text-transform: uppercase;
     margin: 0 0 8px;
 }
-
 #filtro-genere, #filtro-valutazione {
     margin-bottom: 20px;
 }
-
 #filtro-genere label {
     display: flex;
     align-items: center;
@@ -139,11 +135,9 @@ nav a:hover {
     font-size: 0.9rem;
     margin-bottom: 6px;
 }
-
 #filtro-slider {
     width: 100%;
 }
-
 #filtro-ricerca input {
     width: 100%;
     padding: 8px 10px;
@@ -158,16 +152,14 @@ nav a:hover {
     flex-wrap: wrap;
     gap: 18px;
 }
-
 .card {
     position: relative;
-    width: 150px;
+    width: 160px;
     background: #fff;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
-
 .card img {
     width: 100%;
     aspect-ratio: 2/3;
@@ -175,29 +167,24 @@ nav a:hover {
     display: block;
     border-radius: 6px;
 }
-
 .card {
     width: 130px;
 }
-
 .card .titolo {
     font-size: 0.85rem;
     font-weight: 600;
     margin: 8px 0 2px;
     color: #1a1a1a;
 }
-
 .card .genere {
     font-size: 0.75rem;
     color: #888;
     margin: 0 0 4px;
 }
-
 .card .stelle {
     color: #f5a623;
     font-size: 1rem;
 }
-
 .card .cuore {
     position: absolute;
     top: 16px;
@@ -216,10 +203,11 @@ nav a:hover {
 form {
     background: #fff;
     border-radius: 10px;
-    padding: 24px;
-    max-width: 480px;
+    padding: 32px;
+    width: 60%;
+    max-width: 640px;
+    min-width: 320px;
 }
-
 form label {
     display: block;
     font-size: 0.85rem;
@@ -227,7 +215,6 @@ form label {
     margin-bottom: 4px;
     margin-top: 14px;
 }
-
 form input[type="text"],
 form input[type="password"],
 form input[type="url"],
@@ -241,7 +228,6 @@ form textarea {
     font-size: 0.95rem;
     font-family: inherit;
 }
-
 form button[type="submit"] {
     margin-top: 20px;
     background: #3b5bdb;
@@ -252,9 +238,40 @@ form button[type="submit"] {
     font-weight: 600;
     cursor: pointer;
 }
-
 form button[type="submit"]:hover {
     background: #2f47ad;
+}
+form.form-opera {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+    width: 80%;
+    max-width: 700px;
+}
+form.form-opera .campo {
+    display: flex;
+    flex-direction: column;
+}
+form.form-opera .campo-larga {
+    grid-column: 1 / -1;
+}
+.btn-indietro {
+    display: inline-block;
+    background: #f0f0f2;
+    color: #444;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+.btn-indietro:hover {
+    background: #e2e2e6;
+}
+body.scuro .btn-indietro {
+    background: #223058;
+    color: #cfd6e6;
 }
 
 /* --- Stelle valutazione --- */
@@ -272,14 +289,12 @@ form button[type="submit"]:hover {
     padding: 24px;
     max-width: 500px;
 }
-
 #dettaglio img {
     width: 220px;
     border-radius: 8px;
     display: block;
     margin-bottom: 16px;
 }
-
 #dettaglio .categoria {
     display: inline-block;
     background: #eef0ff;
@@ -290,22 +305,18 @@ form button[type="submit"]:hover {
     border-radius: 20px;
     margin-bottom: 8px;
 }
-
 #dettaglio .stelle {
     color: #f5a623;
     font-size: 1.5rem;
 }
-
 #dettaglio .descrizione {
     margin-top: 12px;
     color: #444;
 }
-
 #dettaglio .azioni form {
     display: inline-block;
     margin: 0;
 }
-
 #dettaglio .azioni a,
 #dettaglio .azioni button {
     display: inline-block;
@@ -321,12 +332,10 @@ form button[type="submit"]:hover {
     cursor: pointer;
     border: none;
 }
-
 #dettaglio .azioni a {
     background: #eef0ff;
     color: #3b5bdb;
 }
-
 #dettaglio .azioni button {
     background: #fdecea;
     color: #b3261e;
@@ -337,7 +346,11 @@ body.scuro {
     background: #0b1220;
     color: #e0e6f0;
 }
-
+body.scuro .nav-azioni a,
+body.scuro .nav-centro a {
+    background: #223058;
+    color: #cfd6e6;
+}
 body.scuro nav,
 body.scuro #filtri,
 body.scuro .card,
@@ -346,7 +359,6 @@ body.scuro #dettaglio {
     background: #16213a;
     color: #e0e6f0;
 }
-
 body.scuro nav a { color: #cfd6e6; }
 body.scuro nav a.attivo { background: #223058; color: #8fb0ff; }
 body.scuro nav a:hover { background: #1c2947; }
@@ -357,5 +369,36 @@ body.scuro form textarea {
     color: #e0e6f0;
     border-color: #2a3a5c;
 }
-
 body.scuro .card .genere { color: #9aa4bb; }
+
+/* --- Documentazione --- */
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 32px;
+}
+body.scuro .container {
+    background: #16213a;
+    color: #e0e6f0;
+}
+.container header {
+    margin-bottom: 20px;
+}
+.container header p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+.container p {
+    margin-bottom: 14px;
+}
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: 600;
+}
+body.scuro .container header p {
+    color: #9aa4bb;
+}

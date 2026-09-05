@@ -7,8 +7,10 @@
         <link href="css/style.css" rel="stylesheet" type="text/css">
         <title>Shelf</title>
     </head>
+    
     <body class="pagina-form">
         <h1>Login</h1>
+        
         <form action="php/login.php" method="POST" novalidate>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -22,15 +24,10 @@
 
             <button type="submit">Accedi</button> 
         </form>
-        <p>
-            Non hai un account?
-            <a href="html/registrazione.html">Registrati</a>
-            
-            <br><br>
-            
-            Prima volta su Shelf?
-            <p><a href="html/documentazione.html">Scopri come funziona</a></p>
-        </p>
+
+        <p>Non hai un account?<a href="html/registrazione.html">Registrati</a>
+        <p>Prima volta su Shelf?<a href="html/documentazione.html">Scopri come funziona</a></p>
+
         <script src="js/messaggi.js"></script>
         <script src="js/ui.js"></script>
     </body>
