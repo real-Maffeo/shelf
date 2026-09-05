@@ -55,19 +55,21 @@
                         <label for="tipo">Categoria:</label>
                         <select name="tipo" id="tipo" required>
                             <?php foreach ($TIPI_VALIDI as $t): ?>
-                                <option value="<?= htmlspecialchars($t) ?>"><?= htmlspecialchars(ETICHETTE_TIPO[$t]) ?></option>
+                                <option value="<?= htmlspecialchars($t) ?>" <?= $t === $opera["tipo"] ? "selected" : "" ?>>
+                                    <?= htmlspecialchars(ETICHETTE_TIPO[$t]) ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
 
                     <div class="campo">
                         <label for="titolo">Titolo:</label>
-                        <input type="text" name="titolo" id="titolo" maxlength="64" required>
+                        <input type="text" name="titolo" id="titolo" maxlength="64" required value="<?= htmlspecialchars($opera['titolo']) ?>">
                     </div>
 
                     <div class="campo">
                         <label for="creatore" id="labelCreatore">Regista:</label>
-                        <input type="text" name="creatore" id="creatore" maxlength="64">
+                        <input type="text" name="creatore" id="creatore" maxlength="64" value="<?= htmlspecialchars($opera['creatore'] ?? '') ?>">
                     </div>
                     
                     <div class="campo">
@@ -87,7 +89,7 @@
 
                     <div class="campo">
                         <label for="copertina_url">URL copertina:</label>
-                        <input type="url" name="copertina_url" id="copertina_url" maxlength="256">
+                        <input type="url" name="copertina_url" id="copertina_url" maxlength="256" value="<?= htmlspecialchars($opera['copertina_url'] ?? '') ?>">
                     </div>
 
                     <div class="campo">
@@ -95,25 +97,25 @@
                         <span id="stelle" data-valore="0">
                             <span class="stella" data-valore="1">&#9734;</span><span class="stella" data-valore="2">&#9734;</span><span class="stella" data-valore="3">&#9734;</span><span class="stella" data-valore="4">&#9734;</span><span class="stella" data-valore="5">&#9734;</span>
                         </span>
-                        <input type="hidden" name="valutazione" id="valutazione" value="0" required>
+                        <input type="hidden" name="valutazione" id="valutazione" value="<?= (int)$opera['valutazione'] ?>" required>
                     </div>
 
                     <div class="campo campo-larga">
                         <label for="commento">Commento:</label>
-                        <textarea id="commento" name="commento" maxlength="512" rows="4"></textarea>
+                        <textarea id="commento" name="commento" maxlength="512" rows="4"><?= htmlspecialchars($opera['descrizione'] ?? '') ?></textarea>
                         <span id="contatore-descrizione">0/512</span>
                     </div>
 
                     <div class="campo campo-larga" id="blocco_segnalibro">
                         <label for="segnalibro" id="labelSegnalibro">Fino a dove sei arrivato:</label>
-                        <input type="text" name="segnalibro" id="segnalibro" maxlength="32">
+                        <input type="text" name="segnalibro" id="segnalibro" maxlength="32" value="<?= $opera['tipo'] !== 'serie_tv' ? htmlspecialchars($opera['segnalibro'] ?? '') : '' ?>">
                     </div>
 
                     <div class="campo campo-larga" id="datiSerie" style="display: none;">
                         <label for="stagione">Stagione:</label>
-                        <input type="number" name="stagione" id="stagione" min="1">
+                        <input type="number" name="stagione" id="stagione" min="1" value="<?= htmlspecialchars($stagioneVal) ?>">
                         <label for="episodio">Episodio:</label>
-                        <input type="number" name="episodio" id="episodio" min="1">
+                        <input type="number" name="episodio" id="episodio" min="1" value="<?= htmlspecialchars($episodioVal) ?>">
                     </div>
 
                     <div class="campo campo-larga">
@@ -128,7 +130,7 @@
                     const GENERE_3_ATTUALE = <?= json_encode($opera["genere_3"]) ?>;
                     const VALUTAZIONE_ATTUALE = <?= (int)$opera["valutazione"] ?>;
                 </script>
-                
+
                 <script src="../js/opera-form.js"></script>
                 <script src="../js/ui.js"></script>
             </body>

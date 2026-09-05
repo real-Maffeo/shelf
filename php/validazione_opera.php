@@ -50,6 +50,7 @@
         return $segnalibro !== "" ? $segnalibro : null;
     }
 
+    // Stampa il carattere delle stelle in base alla valutazione
     function renderStelle($valutazione) {
         $stelle = "";
         for ($i = 1; $i <= 5; $i++) {

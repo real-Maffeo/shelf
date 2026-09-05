@@ -1,7 +1,7 @@
 <?php
     require_once "dbaccess.php";
 
-    $TIMEOUT_SECONDI = 3600; // 1 ora
+    $TIMEOUT_SECONDI = 3600; // 1 ora tempo limite per sessione
 
     if (isset($_SESSION["utente_id"])) {
         if (isset($_SESSION["ultimo_accesso"]) && (time() - $_SESSION["ultimo_accesso"]) > $TIMEOUT_SECONDI) {

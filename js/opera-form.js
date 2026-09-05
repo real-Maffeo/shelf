@@ -1,7 +1,6 @@
 // Condiviso tra aggiungi.php e modifica.php - unica differenza: in modifica.php sono
 // gia' definite GENERE_1_ATTUALE/GENERE_2_ATTUALE/GENERE_3_ATTUALE/VALUTAZIONE_ATTUALE
 // per pre-selezionare i valori esistenti.
-
 function popolaGeneri(tipo) {
     const attuali = {
         genere_1: (typeof GENERE_1_ATTUALE !== "undefined") ? GENERE_1_ATTUALE : null,
@@ -92,5 +91,8 @@ document.getElementById("stelle").addEventListener("mouseleave", () => aggiornaS
 document.getElementById("tipo").addEventListener("change", cambiaTipo);
 document.addEventListener("DOMContentLoaded", () => {
     cambiaTipo();
-    if (typeof VALUTAZIONE_ATTUALE !== "undefined") aggiornaStelle(VALUTAZIONE_ATTUALE);
+    if (typeof VALUTAZIONE_ATTUALE !== "undefined") {
+        aggiornaStelle(VALUTAZIONE_ATTUALE);
+        valutazioneInput.value = VALUTAZIONE_ATTUALE;
+    }
 });

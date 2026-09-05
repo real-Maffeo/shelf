@@ -9,6 +9,7 @@
         $tipo = $TIPI_VALIDI[0];
     }
 
+    // Consiglia un'opera casuale
     $utente_id = $_SESSION["utente_id"];
     $stmt = $mysqli->prepare("SELECT id FROM opere WHERE utente_id = ? AND tipo = ? ORDER BY RAND() LIMIT 1");
     $stmt->bind_param("is", $utente_id, $tipo);

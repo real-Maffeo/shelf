@@ -6,7 +6,7 @@
         "path" => "/",
         "domain" => "", 
         "secure" => isset($_SERVER["HTTPS"]), // cookie inviati tramite HTTPS se disponibile
-        "httponly" => true,                   // impedisce XSS cookie theft
+        "httponly" => true,     // impedisce XSS cookie theft
         "samesite" => "Strict"
     ]);
 

@@ -23,6 +23,7 @@ CREATE TABLE opere (
 );
 
 /*
-il campo creatore e' opzionale perche' potresti voler segnare un film che hai visto senza ricordarti 
-chi era il regista, o un fumetto senza sapere l'autore a memoria — bloccare l'inserimento per questo sarebbe una frizione inutile
+il campo creatore e' opzionale perche' potrei voler segnare un film che ho visto 
+senza ricordarmi chi era il regista, o un fumetto senza sapere l'autore a memoria, 
+soprattutto quelli stranieri — bloccare l'inserimento per questo sarebbe una frizione inutile
 */

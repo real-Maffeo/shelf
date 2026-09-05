@@ -26,6 +26,7 @@
     $generi = array_filter([$opera["genere_1"], $opera["genere_2"], $opera["genere_3"]]);
     $etichette = ["film" => "Film", "libro" => "Libro", "fumetto" => "Fumetto", "serie_tv" => "Serie TV"];
 ?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>

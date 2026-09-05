@@ -73,12 +73,6 @@ nav {
 .nav-centro a, .nav-destra a {
     background: #f0f0f2;
 }
-.nav-categorie, .nav-azioni {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
 nav a {
     padding: 8px 16px;
     border-radius: 8px;
@@ -89,9 +83,6 @@ nav a {
 nav a.attivo {
     background: #eef0ff;
     color: #3b5bdb;
-}
-.nav-azioni a {
-    background: #f0f0f2;
 }
 nav a:hover {
     text-decoration: none;
@@ -166,9 +157,6 @@ nav a:hover {
     object-fit: contain;
     display: block;
     border-radius: 6px;
-}
-.card {
-    width: 130px;
 }
 .card .titolo {
     font-size: 0.85rem;
@@ -346,8 +334,8 @@ body.scuro {
     background: #0b1220;
     color: #e0e6f0;
 }
-body.scuro .nav-azioni a,
-body.scuro .nav-centro a {
+body.scuro .nav-centro a,
+body.scuro .nav-destra a {
     background: #223058;
     color: #cfd6e6;
 }
