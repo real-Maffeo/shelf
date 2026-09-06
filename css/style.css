@@ -135,6 +135,15 @@ nav a:hover {
     border-radius: 6px;
     border: 1px solid #ddd;
 }
+.filtro-checkbox {
+    margin-bottom: 20px;
+}
+.filtro-checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+}
 
 /* --- Griglia opere --- */
 #griglia {

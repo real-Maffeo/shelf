@@ -15,6 +15,7 @@
                 <link href="../css/style.css" rel="stylesheet" type="text/css">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Aggiungi</title>
+                <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
             </head>
 
             <body class="pagina-centrata">

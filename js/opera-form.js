@@ -64,9 +64,9 @@ function cambiaTipo() {
 const descrizione = document.getElementById("commento");
 const contatore = document.getElementById("contatore-descrizione");
 if (descrizione && contatore) {
-    contatore.textContent = "${descrizione.value.length}/512";
+    contatore.textContent = `${descrizione.value.length}/512`;
     descrizione.addEventListener("input", () => {
-        contatore.textContent = "${descrizione.value.length}/512";
+        contatore.textContent = `${descrizione.value.length}/512`;
     });
 }
 

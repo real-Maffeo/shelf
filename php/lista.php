@@ -30,6 +30,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Shelf - <?= htmlspecialchars($etichette[$tipo]) ?></title>
         <link href="../css/style.css" rel="stylesheet" type="text/css">
+        <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
     </head>
 
     <body>
@@ -82,10 +83,12 @@
                     <span id="filtro-slider-valore">1</span>
                 </div>
 
-                <label>
-                    <input type="checkbox" id="filtro-preferiti">
-                    Solo preferiti
-                </label>
+                <div class="filtro-checkbox">
+                    <label>
+                        <input type="checkbox" id="filtro-preferiti">
+                        Solo preferiti
+                    </label>
+                </div>
 
                 <div id="filtro-ricerca">
                     <input type="text" id="filtro-titolo" placeholder="Cerca un titolo...">
