@@ -10,7 +10,7 @@ body {
     padding: 24px;
     line-height: 1.5;
 }
-body.pagina-form {
+body.pagina-centrata {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -254,12 +254,22 @@ form.form-opera .campo-larga {
     cursor: pointer;
     margin-bottom: 16px;
 }
+a.btn-indietro {
+    text-decoration: none;
+}
 .btn-indietro:hover {
     background: #e2e2e6;
 }
 body.scuro .btn-indietro {
     background: #223058;
     color: #cfd6e6;
+}
+.obbligatorio::after {
+    content: " *";
+    color: #b3261e;
+}
+body.scuro #dettaglio .descrizione {
+    color: #c7cede;
 }
 
 /* --- Stelle valutazione --- */
@@ -272,16 +282,36 @@ body.scuro .btn-indietro {
 
 /* --- Pagina di dettaglio --- */
 #dettaglio {
+    max-width: 700px;
+    margin: 0 auto;
     background: #fff;
     border-radius: 10px;
     padding: 24px;
-    max-width: 500px;
+    overflow-wrap: break-word;
 }
-#dettaglio img {
+.dettaglio-header {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+.dettaglio-header img {
     width: 220px;
+    flex-shrink: 0;
     border-radius: 8px;
     display: block;
-    margin-bottom: 16px;
+}
+.dettaglio-header .info {
+    flex: 1;
+}
+#dettaglio .descrizione {
+    margin-top: 20px;
+    color: #444;
+    overflow-wrap: break-word;
+}
+#dettaglio .azioni {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
 }
 #dettaglio .categoria {
     display: inline-block;
@@ -297,9 +327,8 @@ body.scuro .btn-indietro {
     color: #f5a623;
     font-size: 1.5rem;
 }
-#dettaglio .descrizione {
-    margin-top: 12px;
-    color: #444;
+.card .titolo {
+    overflow-wrap: break-word;
 }
 #dettaglio .azioni form {
     display: inline-block;
@@ -358,6 +387,9 @@ body.scuro form textarea {
     border-color: #2a3a5c;
 }
 body.scuro .card .genere { color: #9aa4bb; }
+body.scuro .card .titolo {
+    color: #e0e6f0;
+}
 
 /* --- Documentazione --- */
 .container {

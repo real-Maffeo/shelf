@@ -5,6 +5,6 @@
     session_unset();
     session_destroy();
 
-    header("Location: ../index.html?messaggio=" . urlencode("A presto (T^T)"));
+    header("Location: ../index.html?successo=" . urlencode("A presto (T^T)"));
     exit;
 ?>

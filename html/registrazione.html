@@ -7,21 +7,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Registrazione</title>
     </head>
-    <body class="pagina-form">
+    <body class="pagina-centrata">
         <h1>Registrazione</h1>
         <form action="../php/registrazione.php" method="POST" novalidate>
-            <label for="username">Username:</label>
+            <label for="username" class="obbligatorio">Username:</label>
             <input type="text" id="username" name="username" pattern="^[a-zA-Z0-9!@#$%^&*_-]{4,32}$" required>
             <!-- https://regex101.com/ per la costruzione delle espressioni regolari -->
 
             <br><br>
 
-            <label for="password">Password:</label>
+            <label for="password" class="obbligatorio">Password:</label>
             <input type="password" id="password" name="password" pattern="^[a-zA-Z0-9!@#$%^&*_-]{8,64}$" required>
 
             <br><br>
 
-            <label for="confirm_password">Conferma Password:</label>
+            <label for="confirm_password" class="obbligatorio">Conferma Password:</label>
             <input type="password" id="confirm_password" name="confirm_password" required>
 
             <br><br>

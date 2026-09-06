@@ -3,6 +3,7 @@ if (localStorage.getItem("tema") === "scuro") {
     document.body.classList.add("scuro");
 }
 
+// https://unicode.org/emoji/charts/full-emoji-list.html per le emoji
 function aggiornaIconaTema() {
     const bottone = document.getElementById("toggle-tema");
     if (bottone) {

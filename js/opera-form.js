@@ -62,22 +62,25 @@ function cambiaTipo() {
 
 // Contatore caratteri commento
 const descrizione = document.getElementById("commento");
-const contatore = document.getElementById("contatore-commento");
+const contatore = document.getElementById("contatore-descrizione");
 if (descrizione && contatore) {
+    contatore.textContent = "${descrizione.value.length}/512";
     descrizione.addEventListener("input", () => {
-        contatore.textContent = `${descrizione.value.length}/512`;
+        contatore.textContent = "${descrizione.value.length}/512";
     });
 }
 
 const valutazioneInput = document.getElementById("valutazione");
 const stelle = document.querySelectorAll(".stella");
 
+// https://symbl.cc/en/unicode-table/#geometric-shapes per i caratteri unicode
 function aggiornaStelle(valore) {
     stelle.forEach(s => {
         s.textContent = parseInt(s.dataset.valore) <= valore ? "\u2605" : "\u2606";
     });
 }
 
+// Stelle dinamiche
 stelle.forEach(stella => {
     stella.addEventListener("click", () => {
         const valore = parseInt(stella.dataset.valore);

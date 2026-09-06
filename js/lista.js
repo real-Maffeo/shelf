@@ -1,3 +1,4 @@
+// Filtri laterali per lista.php
 function filtra() {
     const generiSelezionati = Array.from(document.querySelectorAll(".filtro-genere-cb:checked")).map(cb => cb.value);
     const valutazioneMinima = parseInt(document.getElementById("filtro-slider").value);
@@ -26,6 +27,7 @@ slider.addEventListener("input", () => {
     filtra();
 });
 
+// https://www.codetable.net/decimal/9825 per i caratteri unicode decimali
 document.querySelectorAll(".cuore").forEach(bottone => {
     bottone.addEventListener("click", async () => {
         const id = bottone.dataset.id;

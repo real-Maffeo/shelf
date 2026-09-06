@@ -35,46 +35,54 @@
         <title>Shelf - <?= htmlspecialchars($opera["titolo"]) ?></title>
         <link href="../css/style.css" rel="stylesheet" type="text/css">
     </head>
-    <body>
-        <?php if (isset($_GET["messaggio"])): ?>
-            <div id="successo"><?= isset($_GET["successo"]) ? htmlspecialchars($_GET["successo"]) : "" ?></div>
-            <div id="avviso"><?= isset($_GET["avviso"]) ? htmlspecialchars($_GET["avviso"]) : "" ?></div>
+
+    <body class="pagina-centrata">
+        <?php if (isset($_GET["successo"])): ?>
+            <div id="successo"><?= htmlspecialchars($_GET["successo"]) ?></div>
+        <?php endif; ?>
+        <?php if (isset($_GET["avviso"])): ?>
+            <div id="avviso"><?= htmlspecialchars($_GET["avviso"]) ?></div>
         <?php endif; ?>
 
-        <a href="lista.php?tipo=<?= urlencode($opera["tipo"]) ?>">&larr; Torna alla lista</a>
+        <a href="lista.php?tipo=<?= urlencode($opera["tipo"]) ?>" class="btn-indietro">&larr; Indietro</a>
 
         <div id="dettaglio">
-            <img src="<?= htmlspecialchars($opera["copertina_url"] ?: "../images/placeholder_{$opera['tipo']}.svg") ?>"
-                 onerror="this.src='../images/placeholder_<?= htmlspecialchars($opera['tipo']) ?>.svg'"
-                 alt="Copertina di <?= htmlspecialchars($opera["titolo"]) ?>">
+            <div class="dettaglio-header">
+                <img src="<?= htmlspecialchars($opera["copertina_url"] ?: "../images/placeholder_{$opera['tipo']}.svg") ?>"
+                    onerror="this.src='../images/placeholder_<?= htmlspecialchars($opera['tipo']) ?>.svg'"
+                    alt="Copertina di <?= htmlspecialchars($opera["titolo"]) ?>">
+                
+                <div class="info">
+                    <h1><?= htmlspecialchars($opera["titolo"]) ?></h1>
+                    <p class="categoria"><?= htmlspecialchars($etichette[$opera["tipo"]]) ?></p>
 
-            <h1><?= htmlspecialchars($opera["titolo"]) ?></h1>
-            <p class="categoria"><?= htmlspecialchars($etichette[$opera["tipo"]]) ?></p>
+                    <?php if ($opera["creatore"]): ?>
+                        <p class="creatore"><?= htmlspecialchars($opera["creatore"]) ?></p>
+                    <?php endif; ?>
 
-            <?php if ($opera["creatore"]): ?>
-                <p class="creatore"><?= htmlspecialchars($opera["creatore"]) ?></p>
-            <?php endif; ?>
+                    <p class="generi"><?= htmlspecialchars(implode(", ", $generi)) ?></p>
+                    <p class="stelle"><?= renderStelle($opera["valutazione"]) ?></p>
 
-            <p class="generi"><?= htmlspecialchars(implode(", ", $generi)) ?></p>
-            <p class="stelle"><?= renderStelle($opera["valutazione"]) ?></p>
+                    <?php if ($opera["segnalibro"]): ?>
+                        <p class="segnalibro">Segnalibro: <?= htmlspecialchars($opera["segnalibro"]) ?></p>
+                    <?php endif; ?>
+                </div>
 
-            <?php if ($opera["segnalibro"]): ?>
-                <p class="segnalibro">Segnalibro: <?= htmlspecialchars($opera["segnalibro"]) ?></p>
-            <?php endif; ?>
+                <?php if ($opera["descrizione"]): ?>
+                    <p class="descrizione"><?= nl2br(htmlspecialchars($opera["descrizione"])) ?></p>
+                <?php endif; ?>
 
-            <?php if ($opera["descrizione"]): ?>
-                <p class="descrizione"><?= nl2br(htmlspecialchars($opera["descrizione"])) ?></p>
-            <?php endif; ?>
+                <div class="azioni">
+                    <a href="modifica.php?id=<?= (int)$opera['id'] ?>">Modifica</a>
 
-            <div class="azioni">
-                <a href="modifica.php?id=<?= (int)$opera['id'] ?>">Modifica</a>
-
-                <form action="elimina.php" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questo elemento?');">
-                    <input type="hidden" name="id" value="<?= (int)$opera['id'] ?>">
-                    <button type="submit">Elimina</button>
-                </form>
+                    <form action="elimina.php" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questo elemento?');">
+                        <input type="hidden" name="id" value="<?= (int)$opera['id'] ?>">
+                        <button type="submit">Elimina</button>
+                    </form>
+                </div>
             </div>
         </div>
+
         <script src="../js/ui.js"></script>
     </body>
 </html>

@@ -23,8 +23,11 @@
     }
     
     // Controllo lunghezza dei campi
-    if (strlen($username) < 4 || strlen($username) > 32 || strlen($password) < 8 || strlen($password) > 64) {
-        erroreRegistrazione("username o password di dimensioni non accettabili!");
+    if (strlen($username) < 4 || strlen($username) > 32) {
+        erroreRegistrazione("Lo username deve avere tra 4 e 32 caratteri!");
+    }
+    if (strlen($password) < 8 || strlen($password) > 64) {
+        erroreRegistrazione("La password deve avere tra 8 e 64 caratteri!");
     }
 
     // Controllo che la stessa password sia stata inserita entrmabe le volte uguale
@@ -54,6 +57,6 @@
     $_SESSION["ultimo_accesso"] = time();
 
     // Link per le emoji: https://emojicombos.com/happy
-    header("Location: ../lista.php?successo=" . urlencode("Registrazione completata con successo ദ്ദി(｡•̀ ,<)~✩‧₊"));  // Alternativa: ( ˶ˆᗜˆ˵ )
+    header("Location: lista.php?successo=" . urlencode("Registrazione completata con successo ദ്ദി(｡•̀ ,<)~✩‧₊"));  // Alternativa: ( ˶ˆᗜˆ˵ )
     exit;
 ?>

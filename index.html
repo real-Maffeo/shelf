@@ -8,16 +8,16 @@
         <title>Shelf</title>
     </head>
     
-    <body class="pagina-form">
+    <body class="pagina-centrata">
         <h1>Login</h1>
         
         <form action="php/login.php" method="POST" novalidate>
-            <label for="username">Username:</label>
+            <label for="username" class="obbligatorio">Username:</label>
             <input type="text" id="username" name="username" required>
 
             <br><br>
 
-            <label for="password">Password:</label>
+            <label for="password" class="obbligatorio">Password:</label>
             <input type="password" id="password" name="password" required>
 
             <br><br>
@@ -25,8 +25,8 @@
             <button type="submit">Accedi</button> 
         </form>
 
-        <p>Non hai un account? <a href="html/registrazione.html">Registrati</a></p>
-        <p>Prima volta su Shelf? <a href="html/documentazione.html">Scopri come funziona</a></p>
+        <p>Non hai un account? <a href="html/registrazione.html">Registrati</a> · 
+            Prima volta su Shelf? <a href="html/documentazione.html">Scopri come funziona</a></p>
 
         <script src="js/messaggi.js"></script>
         <script src="js/ui.js"></script>

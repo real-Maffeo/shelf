@@ -19,6 +19,9 @@
         if (count($generiScelti) !== count(array_unique($generiScelti))) {
             return "Non puoi selezionare lo stesso genere più volte!";
         }
+        if ($genere3 !== "" && $genere2 === "") {
+            return "Non puoi scegliere il terzo genere senza aver scelto anche il secondo!";
+        }
         if ($titolo === "" || strlen($titolo) > 64) {
             return "Titolo obbligatorio, massimo 64 caratteri!";
         }

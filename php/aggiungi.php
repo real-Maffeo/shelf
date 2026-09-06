@@ -17,7 +17,7 @@
                 <title>Aggiungi</title>
             </head>
 
-            <body class="pagina-form">
+            <body class="pagina-centrata">
                 <h1>Aggiungi nuovo titolo</h1>
                 <?php if (isset($_GET["errore"])): ?>
                     <div id="errore"><?= htmlspecialchars($_GET["errore"]) ?></div>
@@ -27,7 +27,7 @@
                 
                 <form method="POST" novalidate class="form-opera">
                     <div class="campo">
-                        <label for="tipo">Categoria:</label>
+                        <label for="tipo" class="obbligatorio">Categoria:</label>
                         <select name="tipo" id="tipo" required>
                             <?php foreach ($TIPI_VALIDI as $t): ?>
                                 <option value="<?= htmlspecialchars($t) ?>"><?= htmlspecialchars(ETICHETTE_TIPO[$t]) ?></option>
@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="campo">
-                        <label for="titolo">Titolo:</label>
+                        <label for="titolo" class="obbligatorio">Titolo:</label>
                         <input type="text" name="titolo" id="titolo" maxlength="64" required>
                     </div>
 
@@ -46,7 +46,7 @@
                     </div>
                     
                     <div class="campo">
-                        <label for="genere_1">Genere:</label>
+                        <label for="genere_1" class="obbligatorio">Genere:</label>
                         <select name="genere_1" id="genere_1" required></select>
                     </div>
 
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="campo">
-                        <label>Valutazione:</label>
+                        <label class="obbligatorio">Valutazione:</label>
                         <span id="stelle" data-valore="0">
                             <span class="stella" data-valore="1">&#9734;</span><span class="stella" data-valore="2">&#9734;</span><span class="stella" data-valore="3">&#9734;</span><span class="stella" data-valore="4">&#9734;</span><span class="stella" data-valore="5">&#9734;</span>
                         </span>
